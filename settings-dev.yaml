@@ -1,0 +1,22 @@
+#settings 在yaml的value值里面不要空格!!
+name: "go-gin"
+port: 8080
+logsAddress: "./logs/"
+
+mysql:
+  name: "root"
+  host: "localhost"
+  port: 3306
+  password: "123456"
+  dbName: "test"
+
+redis:
+  host: "192.168.112.100"
+  port: 6379
+jwt:
+  key: "EYsnfKMf5XWk87LASEs28Dj5ZqGkSerH"
+
+minio:
+  endpoint: "192.168.112.100:9000"
+  accessKeyID: "minioadmin"
+  secretAccessKey: "minioadmin"

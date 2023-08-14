@@ -1,0 +1,2 @@
+2023-07-25T17:18:35.124+0800	INFO	middlewares/ginLogger.go:29	/v1/user/	{"status": 404, "method": "GET", "path": "/v1/user/", "query": "", "ip": "127.0.0.1", "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36", "errors": "", "cost": "0s"}
+2023-07-25T22:50:08.882+0800	INFO	middlewares/ginLogger.go:29	/v1/user/list	{"status": 404, "method": "POST", "path": "/v1/user/list", "query": "page=1&page_size=5", "ip": "::1", "user-agent": "PostmanRuntime/7.32.2", "errors": "", "cost": "0s"}
