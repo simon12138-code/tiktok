@@ -14,6 +14,7 @@ import "go_gin/global"
 
 var video models.Video
 var videoInfo models.UserVideoInfo
+var favorite models.Favorite
 
 type videoDB struct {
 	ctx context.Context
@@ -45,6 +46,12 @@ func (db videoDB) IncreaseUserVideoInfoWorkCount() error {
 	}
 	return nil
 }
-func QueryUserVideoInfoDao(userId int) (*models.UserVideoInfo, error) {
-	return &models.UserVideoInfo{}, nil
+
+func (db videoDB) GetVideoList(userId int) ([]models.Video, error) {
+	videoList := []models.Video{}
+	rows := global.DB.Model(video).Where("author_id = ?", userId).Find(&videoList)
+	if rows.RowsAffected < 1 {
+		return videoList, errors.New("db err")
+	}
+	return videoList, nil
 }

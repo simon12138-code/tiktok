@@ -18,6 +18,7 @@ import (
 	"io"
 	"mime/multipart"
 	"path/filepath"
+	"strconv"
 	"time"
 )
 
@@ -83,6 +84,39 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 	return "成功", "", nil
 }
 
+type Author struct {
+	Id              int    `json:"id"`
+	Name            string `json:"name"`
+	FollowCount     int    `json:"follow_count"`
+	FollowerCount   int    `json:"follower_count"`
+	IsFollow        bool   `json:"is_follow"`
+	Avatar          string `json:"avatar"`
+	BackgroundImage string `json:"background_image"`
+	Signature       string `json:"signature"`
+	TotalFavorited  string `json:"total_favorited"`
+	WorkCount       int    `json:"work_count"`
+	FavoriteCount   int    `json:"favorite_count"`
+}
+type Pubish struct {
+	VideoId       int    `json:"video_id" `
+	Author        Author `json:"author"`
+	PlayUrl       string `json:"play_url" `
+	CoverUrl      string `json:"cover_url" `
+	FavoriteCount int    `json:"favorite_count" `
+	CommentCount  int    `json:"comment_count" `
+	Title         string `json:"title"`
+}
+
+func (this *VideoService) PubishList(form forms.VideoListForm) (interface{}, interface{}, error) {
+	videoDB := dao.NewVideoDB(this.ctx)
+	userId, _ := strconv.Atoi(form.UserId)
+	videoList, err := videoDB.GetVideoList(userId)
+	userinfo := dao.
+	if err != nil {
+		return "video db失败", "", err
+	}
+
+}
 func uploadAndGetUrl(bucketName string, fileName string, fileobj io.Reader, header *multipart.FileHeader) (string, error) {
 	// 把文件上传到minio对应的桶中
 	ok := utils.UploadFile(bucketName, fileName, fileobj, header.Size)

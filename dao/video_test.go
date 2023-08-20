@@ -61,3 +61,15 @@ func TestCreateVideoDao(t *testing.T) {
 	err = videoDB.IncreaseUserVideoInfoWorkCount()
 	assert.Equal(t, err, nil)
 }
+func TestGetUserListDao(t *testing.T) {
+	//启动配置
+	InitConfig()
+	//启动数据库
+	InitMysqlDB()
+	video := NewVideoDB(context.Background())
+	list, err := video.GetVideoList(1)
+	if err != nil {
+		panic(err)
+	}
+	println(list)
+}

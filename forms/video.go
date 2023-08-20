@@ -11,3 +11,8 @@ type VideoForm struct {
 	Token string `form:"token" json:"token" binding:"required"`
 	Title string `form:"title" json:"title" binding:"required"`
 }
+
+type VideoListForm struct {
+	Token  string `form:"token" json:"token" binding:"required"`
+	UserId string `form:"user_id" json:"user_id" binding:"required"`
+}
