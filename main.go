@@ -35,7 +35,7 @@ func main() {
 	value := global.Redis.Get("test")
 	color.Blue(value.Val())
 	// 7. 初始化minIO
-	initialize.InitMinio()
+	//initialize.InitMinio()
 	err := Router.Run(fmt.Sprintf(":%d", global.Settings.Port))
 	if err != nil {
 		zap.L().Info("this is hello func", zap.String("error", "启动错误!"))
