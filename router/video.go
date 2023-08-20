@@ -13,8 +13,15 @@ import (
 func VideoRouter(router *gin.RouterGroup) {
 	VideoRouter := router.Group("")
 	{
-		//登录功能
+		//发布功能
 		VideoRouter.POST("/publish/action", middlewares.JWTAuth(), controller.Publish)
-
+		//列表功能
+		VideoRouter.POST("/publish/list", middlewares.JWTAuth(), controller.PublishList)
+		//点赞功能
+		VideoRouter.POST("/favorite/action", middlewares.JWTAuth(), controller.FavoriteAction)
+		//喜欢列表
+		VideoRouter.POST("/favorite/list", middlewares.JWTAuth(), controller.FavoriteAction)
+		//视频推流
+		VideoRouter.POST("/douyin/feed", controller.FavoriteAction)
 	}
 }

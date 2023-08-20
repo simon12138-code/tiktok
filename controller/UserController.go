@@ -21,7 +21,7 @@ func UserLogin(c *gin.Context) {
 		return
 	}
 
-	userservice := service.NewUserService(c)
+	userservice := service.NewVideoService(c)
 	data, msg, err := userservice.UserLoginService(UserLoginForm)
 	//用户未注册直接返回
 	if err != nil {

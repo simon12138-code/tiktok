@@ -21,6 +21,10 @@ func InitMinio() {
 	//客户端注册到全局变量中
 	global.MinioClient = minioClient
 	//创建一个叫userheader的存储桶。
+<<<<<<< HEAD
 	utils.CreateMinoBuket("video")
 	utils.CreateMinoBuket("cover")
+=======
+	utils.CreateMinoBuket("userheader")
+>>>>>>> user/master
 }

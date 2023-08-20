@@ -73,3 +73,46 @@ func TestGetUserListDao(t *testing.T) {
 	}
 	println(list)
 }
+
+func TestVideoDB_CreateFavorite(t *testing.T) {
+	//启动配置
+	InitConfig()
+	//启动数据库
+	InitMysqlDB()
+	video := NewVideoDB(context.Background())
+	Favorite := models.Favorite{UserId: 1, VideoId: 2}
+	res, err := video.CreateFavorite(&Favorite)
+	if err != nil {
+		panic(err)
+	}
+	assert.Equal(t, res, true)
+}
+
+func TestVideoDB_DeleteFavorite(t *testing.T) {
+	//启动配置
+	InitConfig()
+	//启动数据库
+	InitMysqlDB()
+	video := NewVideoDB(context.Background())
+	Favorite := models.Favorite{UserId: 1, VideoId: 2}
+	res, err := video.DeleteFavorite(&Favorite)
+	if err != nil {
+		panic(err)
+	}
+	assert.Equal(t, res, true)
+}
+
+func TestVideoDB_GetFavoriteList(t *testing.T) {
+	//启动配置
+	InitConfig()
+	//启动数据库
+	InitMysqlDB()
+	video := NewVideoDB(context.Background())
+
+	res, err := video.GetFavoriteList(1)
+	if err != nil {
+		panic(err)
+	}
+	println(res)
+	//assert.Equal(t, res, true)
+}

@@ -84,39 +84,130 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 	return "成功", "", nil
 }
 
-type Author struct {
-	Id              int    `json:"id"`
-	Name            string `json:"name"`
-	FollowCount     int    `json:"follow_count"`
-	FollowerCount   int    `json:"follower_count"`
-	IsFollow        bool   `json:"is_follow"`
-	Avatar          string `json:"avatar"`
-	BackgroundImage string `json:"background_image"`
-	Signature       string `json:"signature"`
-	TotalFavorited  string `json:"total_favorited"`
-	WorkCount       int    `json:"work_count"`
-	FavoriteCount   int    `json:"favorite_count"`
-}
-type Pubish struct {
-	VideoId       int    `json:"video_id" `
-	Author        Author `json:"author"`
-	PlayUrl       string `json:"play_url" `
-	CoverUrl      string `json:"cover_url" `
-	FavoriteCount int    `json:"favorite_count" `
-	CommentCount  int    `json:"comment_count" `
-	Title         string `json:"title"`
-}
-
 func (this *VideoService) PubishList(form forms.VideoListForm) (interface{}, interface{}, error) {
 	videoDB := dao.NewVideoDB(this.ctx)
+	userDB := dao.NewUserDB(this.ctx)
 	userId, _ := strconv.Atoi(form.UserId)
 	videoList, err := videoDB.GetVideoList(userId)
-	userinfo := dao.
 	if err != nil {
 		return "video db失败", "", err
 	}
+	userVideoInfo, err := videoDB.GetUserVideoInfo(userId)
+	if err != nil {
+		return "video db失败", "", err
+	}
+	info, err := userDB.GetOneUserInfo(userId)
+	if err != nil {
+		return "video db失败", "", err
+	}
+	followerId, _ := this.ctx.Get("userId")
+	Followed, err := userDB.IsFollowed(userId, followerId.(int))
+	if err != nil {
+		return "video db失败", "", err
+	}
+	favorited := strconv.Itoa(userVideoInfo.FavoritedCount)
+	author := forms.Author{Id: userId,
+		Name:            info.UserName,
+		FollowCount:     info.FollowCount,
+		FollowerCount:   info.FollowerCount,
+		IsFollow:        Followed,
+		Avatar:          info.Avater,
+		BackgroundImage: info.BackgroundImage,
+		Signature:       info.Signature,
+		TotalFavorited:  favorited,
+		FavoriteCount:   userVideoInfo.FavoriteCount,
+		WorkCount:       userVideoInfo.WorkCount,
+	}
+	resList := make([]forms.PublishRes, 0, len(videoList))
+	for i, v := range videoList {
+		resList[i].Author = author
+		resList[i].VideoId = v.VideoId
+		resList[i].CommentCount = v.CommentCount
+		resList[i].FavoriteCount = v.FavoriteCount
+		resList[i].Title = v.Title
+		resList[i].CoverUrl = v.CoverUrl
+		resList[i].PlayUrl = v.PlayUrl
+	}
+	return "查询成功", resList, nil
+}
+
+func (this *VideoService) FavoritedAction(form forms.VideoFavcriteForm) (interface{}, interface{}, error) {
+	actionType, _ := strconv.Atoi(form.ActionType)
+	videoDB := dao.NewVideoDB(this.ctx)
+	userId, _ := this.ctx.Get("userId")
+
+	videoId, _ := strconv.Atoi(form.VideoId)
+	favorite := models.Favorite{
+		VideoId: videoId,
+		UserId:  userId.(int),
+	}
+	var err error
+	var ok bool
+	if actionType == 1 {
+		ok, err = videoDB.CreateFavorite(&favorite)
+	} else if actionType == 2 {
+		ok, err = videoDB.DeleteFavorite(&favorite)
+	} else {
+		return "错误行动类型", "", errors.New("action tpye error")
+	}
+	if err != nil || !ok {
+		return "action fail", "", err
+	}
+	return "ok", "", nil
+}
+
+func (this *VideoService) FavoriteListFormList(form forms.VideoFavoriteListForm) (interface{}, interface{}, error) {
+	videoDB := dao.NewVideoDB(this.ctx)
+	userDB := dao.NewUserDB(this.ctx)
+	userId, _ := strconv.Atoi(form.UserId)
+	videoList, err := videoDB.GetFavoriteList(userId)
+	if err != nil {
+		return "video db失败", "", err
+	}
+	userVideoInfo, err := videoDB.GetUserVideoInfo(userId)
+	if err != nil {
+		return "video db失败", "", err
+	}
+	info, err := userDB.GetOneUserInfo(userId)
+	if err != nil {
+		return "video db失败", "", err
+	}
+	followerId, _ := this.ctx.Get("userId")
+	Followed, err := userDB.IsFollowed(userId, followerId.(int))
+	if err != nil {
+		return "video db失败", "", err
+	}
+	favorited := strconv.Itoa(userVideoInfo.FavoritedCount)
+	author := forms.Author{Id: userId,
+		Name:            info.UserName,
+		FollowCount:     info.FollowCount,
+		FollowerCount:   info.FollowerCount,
+		IsFollow:        Followed,
+		Avatar:          info.Avater,
+		BackgroundImage: info.BackgroundImage,
+		Signature:       info.Signature,
+		TotalFavorited:  favorited,
+		FavoriteCount:   userVideoInfo.FavoriteCount,
+		WorkCount:       userVideoInfo.WorkCount,
+	}
+	resList := make([]forms.PublishRes, 0, len(videoList))
+	for i, v := range videoList {
+		resList[i].Author = author
+		resList[i].VideoId = v.VideoId
+		resList[i].CommentCount = v.CommentCount
+		resList[i].FavoriteCount = v.FavoriteCount
+		resList[i].Title = v.Title
+		resList[i].CoverUrl = v.CoverUrl
+		resList[i].PlayUrl = v.PlayUrl
+	}
+	return "查询成功", resList, nil
 
 }
+
+func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}, error) {
+
+}
+
 func uploadAndGetUrl(bucketName string, fileName string, fileobj io.Reader, header *multipart.FileHeader) (string, error) {
 	// 把文件上传到minio对应的桶中
 	ok := utils.UploadFile(bucketName, fileName, fileobj, header.Size)

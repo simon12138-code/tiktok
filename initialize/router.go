@@ -15,8 +15,16 @@ func Routers() *gin.Engine {
 	Router := gin.Default()
 	//分配路由。装配顺序： / + v1/ + user/ + list
 	ApiGroup := Router.Group("/douyin/")
+<<<<<<< HEAD
 	//路由分组
 	router.VideoRouter(ApiGroup)
+=======
+
+	//路由分组
+	router.UserRouter(ApiGroup)
+	router.RelationRouter(ApiGroup)
+
+>>>>>>> user/master
 	//添加中间件（全局中间件）
 	Router.Use(middlewares.Ginlogger(), middlewares.GinRecovery(true))
 	Router.Use(middlewares.Cors())

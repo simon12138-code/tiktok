@@ -12,16 +12,16 @@ import (
 	"time"
 )
 
-// 针对对应ID和名称生成的token
-func CreateToken(c *gin.Context, Id uint, NickName string, Role int) string {
+func CreateToken(c *gin.Context, Id int) string {
+
 	//生成token信息
 	j := middlewares.NewJWT()
 	//可以配合自定义封装想要的信息，在完成token验证后还可以通过上下文进行信息保存和验证其他权限等
 	claims := middlewares.CustomClaims{
 		//自定义
-		ID:          uint(Id),
-		NickName:    NickName,
-		AuthorityId: uint(Role),
+
+		ID: int(Id),
+
 		//官方
 		StandardClaims: jwt.StandardClaims{
 			NotBefore: time.Now().Unix(),
