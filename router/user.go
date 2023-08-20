@@ -11,20 +11,12 @@ import (
 )
 
 func UserRouter(Router *gin.RouterGroup) {
+
 	UserRouter := Router.Group("user")
 	{
-		UserRouter.GET("list", func(context *gin.Context) {
-			context.JSON(200, gin.H{
-				"message": "pong",
-			})
-		})
-		//登录功能
-		UserRouter.POST("login", controller.PasswordLogin)
-		//列表获取功能
-		UserRouter.POST("list", middlewares.JWTAuth(), middlewares.IsAdminAuth(), controller.GetUserList)
-		//创建用户功能
-		UserRouter.POST("create", controller.InsertUser)
-		//添加头像功能
-		UserRouter.POST("UploadUserHeaderImage", controller.PutHeaderImage)
+		UserRouter.POST("login", controller.UserLogin)
+		UserRouter.POST("register", controller.UserRegister)
+		UserRouter.GET("", middlewares.JWTAuth(), controller.GetUserInfo)
 	}
+
 }

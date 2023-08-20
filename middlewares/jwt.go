@@ -16,9 +16,7 @@ import (
 )
 
 type CustomClaims struct {
-	ID       uint
-	NickName string
-	//AuthorityId uint
+	ID int
 	jwt.StandardClaims
 }
 

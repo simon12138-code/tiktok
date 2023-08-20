@@ -1,24 +1,32 @@
-/*
-* @Author: pzqu
-* @Date:   2023/7/25 22:07
- */
 package models
 
-import "time"
+import "encoding/json"
 
 type User struct {
-	ID       uint       `json:"id" gorm:"primaryKey"`
-	Password string     `json:"password" `
-	NickName string     `json:"nick_name"`
-	HeadUrl  string     `json:"head_url"`
-	Birthday *time.Time `json:"birthday" gorm:"type:date"`
-	Address  string     `json:"address"`
-	Desc     string     `json:"desc"`
-	Gender   string     `json:"gender"`
-	Role     int        `json:"role"`
-	Mobile   string     `json:"mobile"`
+	Id              int    `json:"id" gorm:"primaryKey"`
+	UserName        string `json:"user_name"`
+	Avater          string `json:"avater"`
+	BackgroundImage string `json:"background_image"`
+	Signature       string `json:"signature"`
+	FollowerCount   int    `json:"follower_count"`
+	FollowCount     int    `json:"follow_count"`
+	Password        string `json:"password"`
 }
 
 func (User) TableName() string {
 	return "user"
+}
+func (u *User) MarshalBinary() ([]byte, error) {
+	return json.Marshal(u)
+}
+
+type Relation struct {
+	Id         int `json:"id" gorm:"primaryKey"`
+	FollowerId int `json:"follower_id"`
+	UserId     int `json:"user_id"`
+	FriendFlag int `json:"friend_flag"`
+}
+
+func (Relation) TableName() string {
+	return "relation"
 }
