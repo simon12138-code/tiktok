@@ -286,20 +286,20 @@ func (this VideoRedis) InsertUserRelation(relation []int, id int) error {
 	return err
 }
 
-func (this VideoRedis) IncreaseFavorite(favorite models.Favorite,authorId int) {
+func (this VideoRedis) IncreaseFavorite(favorite models.Favorite, authorId int) {
 	userId := favorite.UserId
 	videoId := favorite.VideoId
 	//判断videocount是否存在
-	if ok,_ := global.Redis.Exists(this.ctx,GetVideoCounterKey(videoId)).Result();ok==1{
-		incrByUserLikeInVideoInfo(this.ctx,videoId)
+	if ok, _ := global.Redis.Exists(this.ctx, GetVideoCounterKey(videoId)).Result(); ok == 1 {
+		incrByUserLikeInVideoInfo(this.ctx, videoId)
 	}
 	//判断用户count是否存在
-	if ok,_ := global.Redis.Exists(this.ctx,GetUserCounterKey(userId)).Result();ok==1{
-		incrByUserLikeInUserInfo(this.ctx,userId)
+	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
+		incrByUserLikeInUserInfo(this.ctx, userId)
 	}
 	//判断作者count是否存在
-	if ok,_ := global.Redis.Exists(this.ctx,GetUserCounterKey(authorId)).Result();ok==1{
-		incrByUserLikeInUserInfo(this.ctx,authorId)
+	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
+		incrByUserLikeInUserInfo(this.ctx, authorId)
 	}
 }
 
@@ -307,16 +307,16 @@ func (this VideoRedis) DecreaseFavorite(favorite models.Favorite, authorId int) 
 	userId := favorite.UserId
 	videoId := favorite.VideoId
 	//判断videocount是否存在
-	if ok,_ := global.Redis.Exists(this.ctx,GetVideoCounterKey(videoId)).Result();ok==1{
-		decrByUserLikeInVideoInfo(this.ctx,videoId)
+	if ok, _ := global.Redis.Exists(this.ctx, GetVideoCounterKey(videoId)).Result(); ok == 1 {
+		decrByUserLikeInVideoInfo(this.ctx, videoId)
 	}
 	//判断用户count是否存在
-	if ok,_ := global.Redis.Exists(this.ctx,GetUserCounterKey(userId)).Result();ok==1{
-		decrByUserLikeInUserInfo(this.ctx,userId)
+	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
+		decrByUserLikeInUserInfo(this.ctx, userId)
 	}
 	//判断作者count是否存在
-	if ok,_ := global.Redis.Exists(this.ctx,GetUserCounterKey(authorId)).Result();ok==1{
-		decrByUserLikeInUserInfo(this.ctx,authorId)
+	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
+		decrByUserLikeInUserInfo(this.ctx, authorId)
 	}
 }
 
@@ -393,34 +393,34 @@ func incrByUserLikeInVideoInfo(ctx context.Context, videoID int) {
 func decrByUserLikeInUserInfo(ctx context.Context, userID int) {
 	decrByUserField(ctx, userID, "total_favorited")
 }
-func decrByUserLikeInVideoInfo(ctx context.Context,videoID int) {
+func decrByUserLikeInVideoInfo(ctx context.Context, videoID int) {
 	decrByVideoField(ctx, videoID, "favorite_count")
 }
 
 // DecrByUserCollect 收藏数-1
-//func DecrByUserCollect(ctx context.Context, userID int) {
-//	decrByUserField(ctx, userID, "follow_collect_set_count")
-//}
 //
-func incrByVideoField(ctx context.Context, videoID int, field string){
-	change(ctx,"video", videoID, field ,1)
+//	func DecrByUserCollect(ctx context.Context, userID int) {
+//		decrByUserField(ctx, userID, "follow_collect_set_count")
+//	}
+func incrByVideoField(ctx context.Context, videoID int, field string) {
+	change(ctx, "video", videoID, field, 1)
 }
 func incrByUserField(ctx context.Context, userID int, field string) {
-	change(ctx,"user", userID, field,1)
+	change(ctx, "user", userID, field, 1)
 }
 
 func decrByUserField(ctx context.Context, userID int, field string) {
-	change(ctx,"user", userID, field,1)
+	change(ctx, "user", userID, field, 1)
 }
-func decrByVideoField(ctx context.Context, videoID int, field string){
-	change(ctx,"video", videoID, field ,-1)
+func decrByVideoField(ctx context.Context, videoID int, field string) {
+	change(ctx, "video", videoID, field, -1)
 }
 
-func change(ctx context.Context,counterType string, ID int, field string, incr int64) {
+func change(ctx context.Context, counterType string, ID int, field string, incr int64) {
 	var redisKey string
-	if counterType == "user"{
+	if counterType == "user" {
 		redisKey = GetUserCounterKey(ID)
-	}else if counterType == "video"{
+	} else if counterType == "video" {
 		redisKey = GetVideoCounterKey(ID)
 	}
 	before, err := global.Redis.HGet(ctx, redisKey, field).Result()
@@ -435,7 +435,7 @@ func change(ctx context.Context,counterType string, ID int, field string, incr i
 		global.Lg.Info(fmt.Sprintf("禁止变更计数，计数变更后小于0. %d + (%d) = %d\n", beforeInt, incr, beforeInt+incr))
 		return
 	}
-	global.Lg.Info(fmt.Sprintf("user_id: %d\n更新前\n%s = %s\n--------\n", ID, field, before)
+	global.Lg.Info(fmt.Sprintf("user_id: %d\n更新前\n%s = %s\n--------\n", ID, field, before))
 	_, err = global.Redis.HIncrBy(ctx, redisKey, field, incr).Result()
 	if err != nil {
 		panic(err)
