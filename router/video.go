@@ -20,8 +20,8 @@ func VideoRouter(router *gin.RouterGroup) {
 		//点赞功能
 		VideoRouter.POST("/favorite/action", middlewares.JWTAuth(), controller.FavoriteAction)
 		//喜欢列表
-		VideoRouter.POST("/favorite/list", middlewares.JWTAuth(), controller.FavoriteAction)
+		VideoRouter.POST("/favorite/list", middlewares.JWTAuth(), controller.FavoriteList)
 		//视频推流
-		VideoRouter.POST("/douyin/feed", controller.FavoriteAction)
+		VideoRouter.POST("/douyin/feed", controller.Feed)
 	}
 }

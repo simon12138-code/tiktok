@@ -15,7 +15,7 @@ func InitConfig() {
 	//实例化Viper
 	v := viper.New()
 	//文件路径设置
-	v.SetConfigFile("./settings-dev.yaml")
+	v.SetConfigFile("../settings-dev.yaml")
 	if err := v.ReadInConfig(); err != nil {
 		panic(err)
 	}

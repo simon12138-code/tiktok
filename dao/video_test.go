@@ -15,6 +15,7 @@ import (
 	"golang.org/x/net/context"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -81,7 +82,7 @@ func TestVideoDB_CreateFavorite(t *testing.T) {
 	InitMysqlDB()
 	video := NewVideoDB(context.Background())
 	Favorite := models.Favorite{UserId: 1, VideoId: 2}
-	res, err := video.CreateFavorite(&Favorite)
+	_, res, err := video.CreateFavorite(&Favorite)
 	if err != nil {
 		panic(err)
 	}
@@ -95,7 +96,7 @@ func TestVideoDB_DeleteFavorite(t *testing.T) {
 	InitMysqlDB()
 	video := NewVideoDB(context.Background())
 	Favorite := models.Favorite{UserId: 1, VideoId: 2}
-	res, err := video.DeleteFavorite(&Favorite)
+	_, res, err := video.DeleteFavorite(&Favorite)
 	if err != nil {
 		panic(err)
 	}
@@ -115,4 +116,19 @@ func TestVideoDB_GetFavoriteList(t *testing.T) {
 	}
 	println(res)
 	//assert.Equal(t, res, true)
+}
+
+func TestVideoDB_GetFeedVideoList(t *testing.T) {
+	//启动配置
+	InitConfig()
+	//启动数据库
+	InitMysqlDB()
+	video := NewVideoDB(context.Background())
+	timestamp := time.Now().Unix()
+	timeStr := strconv.FormatInt(timestamp, 10)
+	res, err := video.GetFeedVideoList(timeStr)
+	if err != nil {
+		panic(err)
+	}
+	println(res)
 }

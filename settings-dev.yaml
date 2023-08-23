@@ -12,7 +12,7 @@ mysql:
 
 redis:
   host: "192.168.112.100"
-  dbName: "tiktok"
+  port: "6379"
 
 jwt:
   key: "EYsnfKMf5XWk87LASEs28Dj5ZqGkSerH"

@@ -7,6 +7,7 @@ import (
 	"go_gin/forms"
 	"go_gin/global"
 	"go_gin/models"
+	"gorm.io/gorm/clause"
 	"log"
 )
 
@@ -143,7 +144,31 @@ func (db userDB) GetFollowerIds(userId int) ([]int, error) {
 		Ids = append(Ids, relation.FollowerId)
 	}
 	return Ids, nil
+}
 
+// 按照输入用户list进行查询对应的FollowerIds
+func (db userDB) GetUsersFollowerIds(userIds []int) ([][]int, error) {
+	res := make([][]int, len(userIds))
+	for i, v := range userIds {
+		singleLine := make([]int, global.DBMaxInitRelationSliceNum)
+		rows, err := global.DB.Model(userRelation).Where("user_id = ?", v).Order("follower_id").Rows()
+		index := 0
+		for rows.Next() {
+			var relation models.Relation
+			// ScanRows 方法用于将一行记录扫描至结构体
+			err := global.DB.ScanRows(rows, &relation)
+			if err != nil {
+				return nil, errors.New("relationIds 迭代失败")
+			}
+			singleLine[index] = relation.FollowerId
+		}
+		err = rows.Close()
+		if err != nil {
+			return nil, errors.New("relationIds 迭代失败")
+		}
+		res[i] = singleLine
+	}
+	return res, nil
 }
 func (db userDB) GetFollowedUserIds(userId int) ([]int, error) {
 	var relations []models.Relation
@@ -356,4 +381,17 @@ func (db userDB) IsFollowed(userId int, followerId int) (bool, error) {
 		return false, nil
 	}
 	return true, nil
+}
+
+func (db userDB) GetUserList(userIds []int) ([]models.User, error) {
+	//预分配内存
+	res := make([]models.User, len(userIds))
+	rows := global.DB.
+		Model(user).
+		Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).
+		Find(&res, userIds)
+	if rows.RowsAffected < 1 {
+		return res, errors.New("sql错误")
+	}
+	return res, nil
 }

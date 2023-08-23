@@ -23,7 +23,7 @@ type CustomClaims struct {
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		//1、获取token
-		token := c.Request.Header.Get("x-token")
+		token := c.Request.Header.Get("token")
 		color.Yellow(token)
 		if token == "" {
 			response.Err(c, http.StatusUnauthorized, 401, "请登录", "")

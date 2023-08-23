@@ -33,15 +33,7 @@ type FeedForm struct {
 	Token      string `form:"token" json:"token"`             //用户登录状态下设置
 }
 
-type VideoFavoriteListRes struct {
-	VideoId       int    `json:"video_id" `
-	Author        Author `json:"author"`
-	PlayUrl       string `json:"play_url" `
-	CoverUrl      string `json:"cover_url" `
-	FavoriteCount int    `json:"favorite_count" `
-	CommentCount  int    `json:"comment_count" `
-	Title         string `json:"title"`
-}
+type VideoFavoriteListRes PublishRes
 
 type Author struct {
 	Id              int    `json:"id"`
@@ -65,3 +57,5 @@ type PublishRes struct {
 	CommentCount  int    `json:"comment_count" `
 	Title         string `json:"title"`
 }
+
+type FeedRes PublishRes

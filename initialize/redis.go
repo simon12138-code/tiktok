@@ -5,9 +5,10 @@
 package initialize
 
 import (
+	"context"
 	"fmt"
 	"github.com/fatih/color"
-	"github.com/go-redis/redis"
+	"github.com/redis/go-redis/v9"
 	"go_gin/global"
 )
 
@@ -21,7 +22,7 @@ func InitRedis() {
 		DB:       0, //使用默认数据库
 	})
 	//连接redis数据库
-	_, err := global.Redis.Ping().Result()
+	_, err := global.Redis.Ping(context.Background()).Result()
 	//打印错误
 	if err != nil {
 		color.Red("[InitRedis] 链接redis异常:")

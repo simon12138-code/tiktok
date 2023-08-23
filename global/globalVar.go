@@ -6,7 +6,8 @@ package global
 
 import (
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-redis/redis"
+	"github.com/redis/go-redis/v9"
+
 	"github.com/minio/minio-go"
 	"go.uber.org/zap"
 	"go_gin/config"
@@ -21,3 +22,9 @@ var (
 	Redis       *redis.Client
 	MinioClient *minio.Client
 )
+
+const RedisFeedKey = "redisFeedKey"
+const MaxFeedCacheNum = 60
+const RedisUserCountKey = "asdasd"
+const RedisVideoCountKey = "asdasd"
+const DBMaxInitRelationSliceNum = 30

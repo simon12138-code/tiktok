@@ -9,6 +9,9 @@ import (
 	"go_gin/models"
 	"golang.org/x/net/context"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
+	"strconv"
+	"time"
 )
 import "go_gin/global"
 
@@ -66,62 +69,74 @@ func (db videoDB) GetUserVideoInfo(userId int) (*models.UserVideoInfo, error) {
 	return userInfo, nil
 }
 
-func (db videoDB) CreateFavorite(favorite *models.Favorite) (bool, error) {
+func (db videoDB) GetUserVideoInfoList(userIds []int) ([]models.UserVideoInfo, error) {
+	userInfoList := make([]models.UserVideoInfo, len(userIds))
+	rows := global.DB.
+		Model(userVideoInfo).
+		Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).
+		Find(&userInfoList, userIds)
+	if rows.RowsAffected < 1 {
+		return userInfoList, errors.New("db err")
+	}
+	return userInfoList, nil
+}
+
+func (db videoDB) CreateFavorite(favorite *models.Favorite) (int, bool, error) {
 	rows := global.DB.Create(favorite)
 	if rows.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 	//更新作品点按数量
 	var FavoriteVideoInfo models.Video
 	rows2 := global.DB.Model(video).Where("video_id = ?", favorite.VideoId).Update("favorite_count", gorm.Expr("favorite_count + ?", 1))
 	if rows2.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 	rows3 := global.DB.Where("video_id = ?", favorite.VideoId).Find(&FavoriteVideoInfo)
 	if rows3.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 	//更新作者被点赞数量
 	rows4 := global.DB.Model(&userVideoInfo).Where("user_id = ?", FavoriteVideoInfo.AuthorId).Update("favorited_count", gorm.Expr("favorited_count + ?", 1))
 	if rows4.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 	//更新用户点赞数量
 	rows5 := global.DB.Model(&userVideoInfo).Where("user_id = ?", favorite.UserId).Update("favorite_count", gorm.Expr("favorite_count + ?", 1))
 	if rows5.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
-	return true, nil
+	return FavoriteVideoInfo.AuthorId, true, nil
 }
 
-func (db videoDB) DeleteFavorite(userfavorite *models.Favorite) (bool, error) {
+func (db videoDB) DeleteFavorite(userfavorite *models.Favorite) (int, bool, error) {
 	rows := global.DB.Where("user_id = ? AND video_id = ?", userfavorite.UserId, userfavorite.VideoId).Delete(favorite)
 	if rows.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 	//取消点赞的数量
 	rows2 := global.DB.Model(&video).Where("video_id = ?", userfavorite.VideoId).Update("favorite_count", gorm.Expr("favorite_count - ?", 1))
 	if rows2.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 
 	var FavoriteVideoInfo models.Video
 
 	rows3 := global.DB.Where("video_id = ?", userfavorite.VideoId).Find(&FavoriteVideoInfo)
 	if rows3.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 	//删除作者的被点赞数量
 	rows4 := global.DB.Model(&userVideoInfo).Where("user_id = ?", FavoriteVideoInfo.AuthorId).Update("favorited_count", gorm.Expr("favorited_count - ?", 1))
 	if rows4.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
 	//删除用户的点赞数量
 	rows5 := global.DB.Model(&userVideoInfo).Where("user_id = ?", userfavorite.UserId).Update("favorite_count", gorm.Expr("favorite_count - ?", 1))
 	if rows5.RowsAffected < 1 {
-		return false, errors.New("db err")
+		return 0, false, errors.New("db err")
 	}
-	return true, nil
+	return FavoriteVideoInfo.AuthorId, true, nil
 }
 
 func (db videoDB) GetFavoriteList(userId int) ([]models.Video, error) {
@@ -144,4 +159,16 @@ func (db videoDB) GetFavoriteList(userId int) ([]models.Video, error) {
 		return videoList, errors.New("db err")
 	}
 	return videoList, nil
+}
+
+func (db videoDB) GetFeedVideoList(timestr string) ([]models.Video, error) {
+	//根据时间戳逆序查询
+	res := make([]models.Video, global.MaxFeedCacheNum)
+	timestamp, _ := strconv.ParseInt(timestr, 10, 64)
+	t := time.Unix(timestamp, 0)
+	rows := global.DB.Model(video).Where("create_time < ?", t).Order("create_time desc").Limit(global.MaxFeedCacheNum).Find(&res)
+	if rows.RowsAffected < 1 {
+		return nil, errors.New("db err")
+	}
+	return res, nil
 }

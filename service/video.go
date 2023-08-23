@@ -9,10 +9,12 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
 	"go_gin/dao"
 	"go_gin/forms"
 	"go_gin/global"
 	"go_gin/models"
+	redis_db "go_gin/redis-db"
 	"go_gin/utils"
 	"image/jpeg"
 	"io"
@@ -69,17 +71,87 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 	}
 	//进行Dao操作
 	videoDB := dao.NewVideoDB(this.ctx)
+	userDB := dao.NewUserDB(this.ctx)
 	//生成存储对象
 	createTime := time.Now()
 	video := &models.Video{AuthorId: userId, PlayUrl: video_url, CoverUrl: cover_url, FavoriteCount: 0, CommentCount: 0, Title: videoFrom.Title, CreateTime: &createTime}
-	_, err = videoDB.CreateVideoDao(video)
 
+	if err != nil {
+		global.Lg.Error(err.Error())
+		return "上传失败", "", err
+	}
+	//存入DB
+	videoId, err := videoDB.CreateVideoDao(video)
 	if err != nil {
 		return "db 失败", "", err
 	}
 	err = videoDB.IncreaseUserVideoInfoWorkCount()
 	if err != nil {
 		return "db 失败", "", err
+	}
+	var redisCacheErrChan chan error
+	//插入缓存
+	go func() {
+		//必须DB
+		info, err := userDB.GetOneUserInfo(userId)
+		if err != nil {
+			redisCacheErrChan <- err
+			return
+		}
+		videoRedis := redis_db.NewVideoRdis(this.ctx)
+		//如果对应的用户缓存不存在则则更新（一个用户可能有或者没有发布视频，或者上一条视频还在缓存中）
+		if videoRedis.CounterExists("user_id", userId) {
+
+			//存入缓存
+			err = videoRedis.InsertUserCounter(info)
+			if err != nil {
+				redisCacheErrChan <- err
+				return
+			}
+		}
+		//判断relation表是否存在
+		if videoRedis.RelationExists(userId) {
+			//获取用户关系
+			userRelation, err := userDB.GetFollowedUserIds(userId)
+			if err != nil {
+				redisCacheErrChan <- err
+				return
+			}
+			//存入缓存
+			err = videoRedis.InsertUserRelation(userRelation, userId)
+			if err != nil {
+				redisCacheErrChan <- err
+				return
+			}
+		}
+
+		//插入必插入项
+		author := forms.Author{Id: userId,
+			Name:            info.UserName,
+			FollowCount:     info.FollowCount,
+			FollowerCount:   info.FollowerCount,
+			IsFollow:        true,
+			Avatar:          info.Avater,
+			BackgroundImage: info.BackgroundImage,
+			Signature:       info.Signature,
+		}
+		videoCache := forms.PublishRes{}
+		videoCache.Author = author
+		videoCache.VideoId = videoId
+		videoCache.CommentCount = 0
+		videoCache.FavoriteCount = 0
+		videoCache.Title = video.Title
+		videoCache.CoverUrl = video.CoverUrl
+		videoCache.PlayUrl = video.PlayUrl
+		err = videoRedis.InsertVideoAndVideoCounter(videoCache, createTime)
+		if err != nil {
+			redisCacheErrChan <- err
+			return
+		}
+		redisCacheErrChan <- nil
+	}()
+	if err = <-redisCacheErrChan; err != nil {
+		global.Lg.Error(err.Error())
 	}
 	return "成功", "", nil
 }
@@ -144,9 +216,21 @@ func (this *VideoService) FavoritedAction(form forms.VideoFavcriteForm) (interfa
 	var err error
 	var ok bool
 	if actionType == 1 {
-		ok, err = videoDB.CreateFavorite(&favorite)
+		var authorId int
+		authorId, ok, err = videoDB.CreateFavorite(&favorite)
+		//插入缓存（如果存在的话）
+		go func() {
+			videoRedis := redis_db.NewVideoRdis(this.ctx)
+			videoRedis.IncreaseFavorite(favorite, authorId)
+		}()
 	} else if actionType == 2 {
-		ok, err = videoDB.DeleteFavorite(&favorite)
+		var authorId int
+		authorId, ok, err = videoDB.DeleteFavorite(&favorite)
+		//插入缓存（如果存在的话）
+		go func() {
+			videoRedis := redis_db.NewVideoRdis(this.ctx)
+			videoRedis.DecreaseFavorite(favorite, authorId)
+		}()
 	} else {
 		return "错误行动类型", "", errors.New("action tpye error")
 	}
@@ -205,7 +289,107 @@ func (this *VideoService) FavoriteListFormList(form forms.VideoFavoriteListForm)
 }
 
 func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}, error) {
+	//预分配内存
+	res := make([]forms.FeedRes, global.MaxFeedCacheNum)
+	userId, _ := this.ctx.Get("userId")
+	//先访问redis
+	videoRedis := redis_db.NewVideoRdis(this.ctx)
+	videoList, err := videoRedis.GetFeed(form)
+	if err != redis.Nil && err != nil {
+		return "redis err", "", err
+	} else if err == redis.Nil {
+		//缓存失效，访问db
+		videoDB := dao.NewVideoDB(this.ctx)
+		//预分配用户内存
+		userList := make([]int, global.MaxFeedCacheNum)
+		videoList := make([]models.Video, global.MaxFeedCacheNum)
+		if form.LatestTime == "" {
+			//获取当前时间戳
+			timestamp := strconv.FormatInt(time.Now().Unix(), 10)
+			videoList, err = videoDB.GetFeedVideoList(timestamp)
+			if err != nil {
+				return "db err", "", err
+			}
+		} else {
+			videoList, err = videoDB.GetFeedVideoList(form.LatestTime)
+			if err != nil {
+				return "db err", "", err
+			}
+		}
+		//获取喜爱列表的用户idlist
+		for i, v := range videoList {
+			userList[i] = v.AuthorId
+		}
+		//获取用户信息
+		userDB := dao.NewUserDB(this.ctx)
+		userInfoList, err := userDB.GetUserList(userList)
+		if err != nil {
+			return "db err", "", err
+		}
+		//获取用户视频信息
+		userVideoInfoList, err := videoDB.GetUserVideoInfoList(userList)
+		if err != nil {
+			return "db err", "", err
+		}
+		//获取用户关注信息
+		userFollowerList, err := userDB.GetUsersFollowerIds(userList)
+		if err != nil {
+			return "db err", "", err
+		}
+		//装填返回值
+		for i := 0; i < len(videoList); i++ {
+			//userInfo
+			res[i].Author.Id = userInfoList[i].Id
+			res[i].Author.Name = userInfoList[i].UserName
+			res[i].Author.Signature = userInfoList[i].Signature
+			res[i].Author.BackgroundImage = userInfoList[i].BackgroundImage
+			res[i].Author.Avatar = userInfoList[i].Avater
+			res[i].Author.FollowCount = userInfoList[i].FollowCount
+			res[i].Author.FollowerCount = userInfoList[i].FollowerCount
+			//二分查找
+			res[i].Author.IsFollow = isFollow(userFollowerList[i], userId.(int))
+			//userVideoInfo
+			res[i].Author.FavoriteCount = userVideoInfoList[i].FavoriteCount
+			res[i].Author.TotalFavorited = strconv.Itoa(userVideoInfoList[i].FavoritedCount)
+			res[i].Author.WorkCount = userVideoInfoList[i].WorkCount
+			//VideoInfo
+			res[i].VideoId = videoList[i].VideoId
+			res[i].FavoriteCount = videoList[i].FavoriteCount
+			res[i].CommentCount = videoList[i].CommentCount
+			res[i].Title = videoList[i].Title
+			res[i].PlayUrl = videoList[i].PlayUrl
+			res[i].CoverUrl = videoList[i].CoverUrl
+		}
+		//创建时间戳序列,默认推流个数30
+		timeList := make([]int64, global.MaxFeedCacheNum)
+		for i := 0; i < global.MaxFeedCacheNum; i++ {
+			timeList[i] = videoList[i].CreateTime.Unix()
+		}
+		//将查询到的内容插入到redis中更新
+		err = videoRedis.InsertFeedList(res, timeList, userFollowerList)
+		if err != nil {
+			return "", "", err
+		}
+		return "success", res[:30], nil
+	}
 
+	return "", videoList, nil
+}
+
+func isFollow(nums []int, target int) bool {
+	low, high := 0, len(nums)-1
+	mid := 0
+	for low <= high {
+		mid = low + (high-low)/2
+		if nums[mid] == target {
+			return true
+		} else if nums[mid] > target {
+			high = mid - 1
+		} else if nums[mid] < target {
+			low = mid + 1
+		}
+	}
+	return false
 }
 
 func uploadAndGetUrl(bucketName string, fileName string, fileobj io.Reader, header *multipart.FileHeader) (string, error) {
