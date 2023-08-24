@@ -288,7 +288,7 @@ func (this *VideoService) FavoriteListFormList(form forms.VideoFavoriteListForm)
 
 }
 
-func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}, error) {
+func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}, int, error) {
 	//预分配内存
 	res := make([]forms.FeedRes, global.MaxFeedCacheNum)
 	userId, _ := this.ctx.Get("userId")
@@ -296,7 +296,7 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 	videoRedis := redis_db.NewVideoRdis(this.ctx)
 	videoList, err := videoRedis.GetFeed(form)
 	if err != redis.Nil && err != nil {
-		return "redis err", "", err
+		return "redis err", "", 0, err
 	} else if err == redis.Nil {
 		//缓存失效，访问db
 		videoDB := dao.NewVideoDB(this.ctx)
@@ -308,12 +308,12 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 			timestamp := strconv.FormatInt(time.Now().Unix(), 10)
 			videoList, err = videoDB.GetFeedVideoList(timestamp)
 			if err != nil {
-				return "db err", "", err
+				return "db err", "", 0, err
 			}
 		} else {
 			videoList, err = videoDB.GetFeedVideoList(form.LatestTime)
 			if err != nil {
-				return "db err", "", err
+				return "db err", "", 0, err
 			}
 		}
 		//获取喜爱列表的用户idlist
@@ -324,17 +324,17 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 		userDB := dao.NewUserDB(this.ctx)
 		userInfoList, err := userDB.GetUserList(userList)
 		if err != nil {
-			return "db err", "", err
+			return "db err", "", 0, err
 		}
 		//获取用户视频信息
 		userVideoInfoList, err := videoDB.GetUserVideoInfoList(userList)
 		if err != nil {
-			return "db err", "", err
+			return "db err", "", 0, err
 		}
 		//获取用户关注信息
 		userFollowerList, err := userDB.GetUsersFollowerIds(userList)
 		if err != nil {
-			return "db err", "", err
+			return "db err", "", 0, err
 		}
 		//装填返回值
 		for i := 0; i < len(videoList); i++ {
@@ -368,12 +368,13 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 		//将查询到的内容插入到redis中更新
 		err = videoRedis.InsertFeedList(res, timeList, userFollowerList)
 		if err != nil {
-			return "", "", err
+			return "", "", 0, err
 		}
-		return "success", res[:30], nil
+		next_time := timeList[30]
+		return "success", res[:30], int(next_time), nil
 	}
 
-	return "", videoList, nil
+	return "", videoList, int(time.Now().Unix()), nil
 }
 
 func isFollow(nums []int, target int) bool {

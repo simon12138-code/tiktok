@@ -12,6 +12,10 @@ import (
 	"go_gin/utils"
 )
 
+type PublishRes struct {
+	Response
+}
+
 func Publish(ctx *gin.Context) {
 	//参数校验
 	videoForm := forms.VideoForm{}
@@ -22,14 +26,22 @@ func Publish(ctx *gin.Context) {
 	}
 	videoForm.Data, _ = ctx.FormFile("file")
 	videoService := service.NewVideoService(ctx)
-	data, msg, err := videoService.Pubish(videoForm)
+	msg, _, err := videoService.Pubish(videoForm)
+
 	if err != nil {
-		response.Err(ctx, 500, 500, msg, data)
+		res := PublishRes{Response{StatusCode: 500, StatusMsg: msg.(string)}}
+		response.Err(ctx, 500, res)
 		return
 	}
-	response.Success(ctx, 200, msg, data)
-
+	res := PublishRes{Response{StatusCode: 0, StatusMsg: msg.(string)}}
+	response.Success(ctx, res)
 }
+
+type PublishListRes struct {
+	Response
+	VideoList []forms.PublishRes `json:"video_list"`
+}
+
 func PublishList(ctx *gin.Context) {
 	//参数校验
 	videoListForm := forms.VideoListForm{}
@@ -41,10 +53,24 @@ func PublishList(ctx *gin.Context) {
 	videoService := service.NewVideoService(ctx)
 	msg, data, err := videoService.PubishList(videoListForm)
 	if err != nil {
-		response.Err(ctx, 500, 500, msg, data)
+		res := PublishListRes{
+			Response{
+				StatusCode: 500,
+				StatusMsg:  msg.(string),
+			},
+			nil,
+		}
+		response.Err(ctx, 500, res)
 		return
 	}
-	response.Success(ctx, 200, msg, data)
+	res := PublishListRes{
+		Response{
+			StatusCode: 0,
+			StatusMsg:  msg.(string),
+		},
+		data.([]forms.PublishRes),
+	}
+	response.Success(ctx, res)
 }
 
 func FavoriteAction(ctx *gin.Context) {
@@ -55,12 +81,19 @@ func FavoriteAction(ctx *gin.Context) {
 		return
 	}
 	videoService := service.NewVideoService(ctx)
-	msg, data, err := videoService.FavoritedAction(videoFavoriteForm)
+	msg, _, err := videoService.FavoritedAction(videoFavoriteForm)
 	if err != nil {
-		response.Err(ctx, 500, 500, msg, data)
+		res := Response{StatusCode: 500, StatusMsg: msg.(string)}
+		response.Err(ctx, 500, res)
 		return
 	}
-	response.Success(ctx, 200, msg, data)
+	res := Response{StatusCode: 0, StatusMsg: msg.(string)}
+	response.Success(ctx, res)
+}
+
+type FavoriteListRes struct {
+	Response
+	VideoList []forms.PublishRes `json:"video_list"`
 }
 
 func FavoriteList(ctx *gin.Context) {
@@ -74,10 +107,29 @@ func FavoriteList(ctx *gin.Context) {
 	videoService := service.NewVideoService(ctx)
 	msg, data, err := videoService.FavoriteListFormList(videoFavoriteListForm)
 	if err != nil {
-		response.Err(ctx, 500, 500, msg, data)
+		res := FavoriteListRes{
+			Response{StatusCode: 500, StatusMsg: msg.(string)},
+			nil,
+		}
+		response.Err(ctx, 500, res)
 		return
 	}
-	response.Success(ctx, 200, msg, data)
+	res := FavoriteListRes{
+		Response{StatusCode: 500, StatusMsg: msg.(string)},
+		data.([]forms.PublishRes),
+	}
+	response.Success(ctx, res)
+}
+
+type Response struct {
+	StatusCode int    `json:"status_code"`
+	StatusMsg  string `json:"status_msg"`
+}
+
+type FeedRes struct {
+	Response
+	NextTime  int             `json:"next_time"`
+	VideoList []forms.FeedRes `json:"video_list"`
 }
 
 // 视频推流接口
@@ -89,11 +141,23 @@ func Feed(ctx *gin.Context) {
 		utils.HandleValidatorError(ctx, err)
 		return
 	}
+
 	videoService := service.NewVideoService(ctx)
-	msg, data, err := videoService.FeedList(feedForm)
+	msg, data, time, err := videoService.FeedList(feedForm)
+
 	if err != nil {
-		response.Err(ctx, 500, 500, msg, data)
+		res := FeedRes{
+			Response{StatusCode: 500, StatusMsg: msg.(string)},
+			time,
+			data.([]forms.FeedRes),
+		}
+		response.Err(ctx, 500, res)
 		return
 	}
-	response.Success(ctx, 200, msg, data)
+	res := FeedRes{
+		Response{StatusCode: 0, StatusMsg: msg.(string)},
+		time,
+		data.([]forms.FeedRes),
+	}
+	response.Success(ctx, res)
 }
