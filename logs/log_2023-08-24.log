@@ -1,0 +1,4 @@
+2023-08-24T10:45:05.852+0800	INFO	middlewares/ginLogger.go:29	/tiktok/user/test	{"status": 404, "method": "POST", "path": "/tiktok/user/test", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
+2023-08-24T10:47:37.992+0800	INFO	middlewares/ginLogger.go:29	/tiktok/user/test	{"status": 404, "method": "GET", "path": "/tiktok/user/test", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
+2023-08-24T10:47:58.420+0800	INFO	middlewares/ginLogger.go:29	/tiktok/user/test	{"status": 404, "method": "GET", "path": "/tiktok/user/test", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
+2023-08-24T10:48:54.880+0800	INFO	middlewares/ginLogger.go:29	/tdouyin/user/test	{"status": 404, "method": "GET", "path": "/tdouyin/user/test", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
