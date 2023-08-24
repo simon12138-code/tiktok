@@ -33,7 +33,8 @@ func HandleValidatorError(c *gin.Context, err error) {
 	//})
 }
 
-// removeTopStruct 定义一个去掉结构体名称前缀的自定义方法：
+// removeTopStruct 定义一个去掉结构体wq:wq:w
+//wq名称前缀的自定义方法：
 /*
 去掉前："PasswordLoginForm.mobile":"mobile为必填字段"
 去掉后：					 "mobile":"mobile为必填字段"
