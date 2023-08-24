@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.15.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/assert/v2 v2.2.0
