@@ -5,10 +5,10 @@ logsAddress: "./logs/"
 
 mysql:
   name: "root"
-  host: "localhost"
+  host: "192.168.112.100"
   port: 3306
   password: "123456"
-  dbName: "test"
+  dbName: "tiktok"
 
 redis:
   host: "192.168.112.100"

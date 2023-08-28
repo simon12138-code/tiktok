@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go_gin/middlewares"
 	"go_gin/response"
+	"net/http"
 	"time"
 )
 
@@ -33,7 +34,7 @@ func CreateToken(c *gin.Context, Id int) string {
 	//生成token
 	token, err := j.CreateToken(claims)
 	if err != nil {
-		response.Err(c, 401, 401, "token生成失败,重新再试", "test")
+		response.Err(c, 401, response.Response{StatusCode: http.StatusUnauthorized, StatusMsg: "token生成失败，请重试"})
 		return ""
 	}
 	return token

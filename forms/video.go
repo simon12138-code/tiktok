@@ -58,4 +58,24 @@ type PublishRes struct {
 	Title         string `json:"title"`
 }
 
-type FeedRes PublishRes
+type FeedRes struct {
+	VideoId       int    `json:"id" `
+	Author        Author `json:"author"`
+	PlayUrl       string `json:"play_url" `
+	CoverUrl      string `json:"cover_url" `
+	FavoriteCount int    `json:"favorite_count" `
+	CommentCount  int    `json:"comment_count" `
+	IsFavorite    bool   `json:"is_favorite"`
+	Title         string `json:"title"`
+}
+
+type FavoriteRes struct {
+	VideoId       int    `json:"id" `
+	Author        Author `json:"author"`
+	PlayUrl       string `json:"play_url" `
+	CoverUrl      string `json:"cover_url" `
+	FavoriteCount int    `json:"favorite_count" `
+	CommentCount  int    `json:"comment_count" `
+	IsFavorite    bool   `json:"is_favorite"`
+	Title         string `json:"title"`
+}

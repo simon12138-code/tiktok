@@ -25,6 +25,6 @@ var (
 
 const RedisFeedKey = "redisFeedKey"
 const MaxFeedCacheNum = 60
-const RedisUserCountKey = "asdasd"
-const RedisVideoCountKey = "asdasd"
+const RedisUserCountKey = "RedisUserCountKey"
+const RedisVideoCountKey = "RedisVideoCountKey"
 const DBMaxInitRelationSliceNum = 30

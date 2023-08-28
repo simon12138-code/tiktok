@@ -26,7 +26,14 @@ func HandleValidatorError(c *gin.Context, err error) {
 	}
 	//改为统一回复格式
 	msg := removeTopStruct(errs.Translate(global.Trans))
-	response.Err(c, http.StatusBadRequest, 400, "字段校验错误", msg)
+	res := struct {
+		response.Response
+		data map[string]string
+	}{
+		response.Response{StatusMsg: "字段校验错误", StatusCode: http.StatusBadRequest},
+		msg,
+	}
+	response.Err(c, http.StatusBadRequest, res)
 	//c.JSON(http.StatusBadRequest, gin.H{
 	//	//针对校验信息错误类型的方法Translate回调对应的翻译器global.Trans，返回的所有错误对应的翻译，键值对类型
 	//	"error": removeTopStruct(errs.Translate(global.Trans))

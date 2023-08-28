@@ -17,23 +17,23 @@ type UserService struct {
 func NewUserService(ctx *gin.Context) *UserService {
 	return &UserService{ctx: ctx}
 }
-func (this UserService) UserLoginService(userLoginForm forms.UserLoginForm) (interface{}, interface{}, error) {
+func (this UserService) UserLoginService(userLoginForm forms.UserLoginForm) (map[string]interface{}, interface{}, error) {
 	userdb := dao.NewUserDB(this.ctx)
 	user, err := userdb.UserLogin(userLoginForm.Username, userLoginForm.Password)
 	if err != nil {
-		return "", "用户不存在", err
+		return nil, "用户不存在", err
 	}
 	if comparePasswords(user.Password, []byte(userLoginForm.Password)) {
 		//为用户生成token
 		token := utils.CreateToken(this.ctx, user.Id)
 		//整理用户信息为统一返回封装的map格式（JSON）
 		userinfoMap := map[string]interface{}{
-			"userid": user.Id,
+			"userId": user.Id,
 			"token":  token,
 		}
 		return userinfoMap, "登录成功", nil
 	}
-	return "", "密码错误", nil
+	return nil, "密码错误", nil
 
 }
 func (this UserService) CreateUserService(user *models.User) (interface{}, interface{}, error) {

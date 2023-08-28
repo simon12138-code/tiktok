@@ -1,0 +1,759 @@
+2023-08-26T16:44:11.256+0800	INFO	go_gin/main.go:42	this is hello func	{"error": "启动错误!"}
+2023-08-26T17:02:08.908+0800	ERROR	utils/ffmpeg.go:28	获取封面失败
+go_gin/utils.exampleReadFrameAsJpeg
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:28
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:46
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:51
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:02:08.908+0800	ERROR	utils/ffmpeg.go:48	保存截图失败
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:48
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:51
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:03:40.364+0800	ERROR	utils/ffmpeg.go:58	保存截图失败
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:58
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:51
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:06:09.055+0800	ERROR	utils/ffmpeg.go:58	保存截图失败
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:58
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:51
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:07:58.518+0800	ERROR	service/video.go:401	upload Fail
+go_gin/service.uploadAndGetUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:401
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:67
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:07:58.518+0800	ERROR	service/video.go:69	upload Fail
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:69
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:29:46.949+0800	ERROR	utils/ffmpeg.go:28	获取封面失败
+go_gin/utils.exampleReadFrameAsJpeg
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:28
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:46
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:50
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:29:46.949+0800	ERROR	utils/ffmpeg.go:48	保存截图失败
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:48
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:50
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:30:43.271+0800	ERROR	utils/ffmpeg.go:28	获取封面失败
+go_gin/utils.exampleReadFrameAsJpeg
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:28
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:46
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:50
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:30:43.271+0800	ERROR	utils/ffmpeg.go:48	保存截图失败
+go_gin/utils.GetSnapShot
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/ffmpeg.go:48
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:50
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T17:49:43.018+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T17:52:38.043+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T17:55:49.367+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T17:57:46.521+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:01:28.671+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:06:32.040+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:06:32.050+0800	INFO	redis-db/video.go:280	设置 uid=4, key=4
+
+2023-08-26T18:06:50.738+0800	ERROR	service/video.go:153	粉丝数为0
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:153
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-26T18:06:50.738+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:08:33.320+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:08:33.329+0800	INFO	redis-db/video.go:280	设置 uid=4, key=4
+
+2023-08-26T18:08:33.330+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:14:29.396+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:14:29.397+0800	INFO	redis-db/video.go:280	设置 uid=4, key=4
+
+2023-08-26T18:14:29.398+0800	INFO	redis-db/video.go:444	设置 uid=4, key=asdasd_4
+
+2023-08-26T18:19:14.362+0800	INFO	middlewares/ginLogger.go:29	/douyin/feed	{"status": 404, "method": "GET", "path": "/douyin/feed", "query": "latest_time=1693045154049&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "5.781µs"}
+2023-08-26T18:19:16.703+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "5.156µs"}
+2023-08-26T18:19:16.703+0800	INFO	middlewares/ginLogger.go:29	/douyin/publish/list/	{"status": 404, "method": "GET", "path": "/douyin/publish/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "3.556µs"}
+2023-08-26T18:19:26.772+0800	INFO	middlewares/ginLogger.go:29	/douyin/feed	{"status": 404, "method": "GET", "path": "/douyin/feed", "query": "latest_time=1693045166472", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "4.1µs"}
+2023-08-26T18:19:42.487+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NjM3MTgyLCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMDQ1MTgyfQ.ZjkGP322klZ3MMgjWgdD_EyqCEXUO73MtU46wAT0yak&user_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "4.833µs"}
+2023-08-26T18:19:42.487+0800	INFO	middlewares/ginLogger.go:29	/douyin/publish/list/	{"status": 404, "method": "GET", "path": "/douyin/publish/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NjM3MTgyLCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMDQ1MTgyfQ.ZjkGP322klZ3MMgjWgdD_EyqCEXUO73MtU46wAT0yak&user_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "3.923µs"}
+2023-08-26T18:21:16.255+0800	INFO	middlewares/ginLogger.go:29	/douyin/feed	{"status": 404, "method": "GET", "path": "/douyin/feed", "query": "latest_time=1693045275952", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "8.622µs"}
+2023-08-26T18:21:28.368+0800	INFO	middlewares/ginLogger.go:29	/douyin/publish/list/	{"status": 404, "method": "GET", "path": "/douyin/publish/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NjM3Mjg4LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMDQ1Mjg4fQ.83muBL_K8l5EKL8g2G2HKMIXOky8gre1TTTsTL4VS9c&user_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "4.39µs"}
+2023-08-26T18:21:28.370+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NjM3Mjg4LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMDQ1Mjg4fQ.83muBL_K8l5EKL8g2G2HKMIXOky8gre1TTTsTL4VS9c&user_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "4.519µs"}
+2023-08-26T18:22:37.644+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NjM3Mjg4LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMDQ1Mjg4fQ.83muBL_K8l5EKL8g2G2HKMIXOky8gre1TTTsTL4VS9c&user_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "7.857µs"}
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:09:06.274+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.158+0800	INFO	redis-db/video.go:283	设置 uid=4, key=4
+
+2023-08-26T19:10:32.158+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.158+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.158+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.158+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=1, key=asdasd_1
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=2, key=asdasd_2
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=3, key=asdasd_3
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=5, key=asdasd_5
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=6, key=asdasd_6
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=7, key=asdasd_7
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=8, key=asdasd_8
+
+2023-08-26T19:10:32.159+0800	INFO	redis-db/video.go:447	设置 uid=9, key=asdasd_9
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:283	设置 uid=4, key=4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=1, key=asdasd_1
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=2, key=asdasd_2
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=3, key=asdasd_3
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=5, key=asdasd_5
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=6, key=asdasd_6
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=7, key=asdasd_7
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=8, key=asdasd_8
+
+2023-08-26T19:11:13.275+0800	INFO	redis-db/video.go:447	设置 uid=9, key=asdasd_9
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:294	设置 uid=4, key=4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=1, key=asdasd_1
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=2, key=asdasd_2
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=3, key=asdasd_3
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=5, key=asdasd_5
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=6, key=asdasd_6
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=7, key=asdasd_7
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=8, key=asdasd_8
+
+2023-08-26T19:52:21.278+0800	INFO	redis-db/video.go:458	设置 uid=9, key=asdasd_9
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=1, key=asdasd_1
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=2, key=asdasd_2
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=3, key=asdasd_3
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=5, key=asdasd_5
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=6, key=asdasd_6
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=7, key=asdasd_7
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=8, key=asdasd_8
+
+2023-08-26T19:53:58.374+0800	INFO	redis-db/video.go:458	设置 uid=9, key=asdasd_9
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.376+0800	INFO	redis-db/video.go:458	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:53:58.382+0800	INFO	redis-db/video.go:294	设置 uid=4, key=4
+
+2023-08-26T19:55:50.642+0800	INFO	redis-db/video.go:292	设置 uid=4, key=4
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=1, key=asdasd_1
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=2, key=asdasd_2
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=3, key=asdasd_3
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=5, key=asdasd_5
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=6, key=asdasd_6
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=7, key=asdasd_7
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=8, key=asdasd_8
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=9, key=asdasd_9
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.643+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.649+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.649+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.649+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.649+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.649+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.649+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T19:55:50.649+0800	INFO	redis-db/video.go:456	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=1, key=asdasd_1
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=2, key=asdasd_2
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=3, key=asdasd_3
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=5, key=asdasd_5
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=6, key=asdasd_6
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:293	设置 uid=4, key=4
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=7, key=asdasd_7
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=8, key=asdasd_8
+
+2023-08-26T20:04:23.429+0800	INFO	redis-db/video.go:457	设置 uid=9, key=asdasd_9
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:04:24.059+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=1, key=asdasd_1
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=2, key=asdasd_2
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=3, key=asdasd_3
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=5, key=asdasd_5
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=6, key=asdasd_6
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=7, key=asdasd_7
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=8, key=asdasd_8
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=9, key=asdasd_9
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.395+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.396+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.396+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:05:10.401+0800	INFO	redis-db/video.go:293	设置 uid=4, key=4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:293	设置 uid=4, key=4
+
+2023-08-26T20:08:18.192+0800	INFO	redis-db/video.go:457	设置 uid=1, key=asdasd_1
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=2, key=asdasd_2
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=3, key=asdasd_3
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=5, key=asdasd_5
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=6, key=asdasd_6
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=7, key=asdasd_7
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=8, key=asdasd_8
+
+2023-08-26T20:08:18.193+0800	INFO	redis-db/video.go:457	设置 uid=9, key=asdasd_9
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:293	设置 uid=4, key=4
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=1, key=asdasd_1
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=2, key=asdasd_2
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=3, key=asdasd_3
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=5, key=asdasd_5
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=6, key=asdasd_6
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=7, key=asdasd_7
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=8, key=asdasd_8
+
+2023-08-26T20:11:15.999+0800	INFO	redis-db/video.go:457	设置 uid=9, key=asdasd_9
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:11:16.000+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.584+0800	INFO	redis-db/video.go:293	设置 uid=4, key=4
+
+2023-08-26T20:15:37.584+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=1, key=asdasd_1
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=2, key=asdasd_2
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=3, key=asdasd_3
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=4, key=asdasd_4
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=5, key=asdasd_5
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=6, key=asdasd_6
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=7, key=asdasd_7
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=8, key=asdasd_8
+
+2023-08-26T20:15:37.585+0800	INFO	redis-db/video.go:457	设置 uid=9, key=asdasd_9
+
+2023-08-27T17:58:20.841+0800	INFO	middlewares/ginLogger.go:29	/douyin/comment/list/	{"status": 404, "method": "GET", "path": "/douyin/comment/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NjM3Mjg4LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMDQ1Mjg4fQ.83muBL_K8l5EKL8g2G2HKMIXOky8gre1TTTsTL4VS9c&video_id=9", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "35.293µs"}

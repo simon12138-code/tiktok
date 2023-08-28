@@ -13,15 +13,15 @@ import (
 func VideoRouter(router *gin.RouterGroup) {
 	VideoRouter := router.Group("")
 	{
-		//发布功能
-		VideoRouter.POST("/publish/action", middlewares.JWTAuth(), controller.Publish)
+		//发布功能,目前采用侵入式鉴权解决方案
+		VideoRouter.POST("/publish/action/", middlewares.JWTAuthInBody(), controller.Publish)
 		//列表功能
-		VideoRouter.POST("/publish/list", middlewares.JWTAuth(), controller.PublishList)
+		VideoRouter.GET("/publish/list/", middlewares.JWTAuth(), controller.PublishList)
 		//点赞功能
-		VideoRouter.POST("/favorite/action", middlewares.JWTAuth(), controller.FavoriteAction)
+		VideoRouter.POST("/favorite/action/", middlewares.JWTAuthInBody(), controller.FavoriteAction)
 		//喜欢列表
-		VideoRouter.POST("/favorite/list", middlewares.JWTAuth(), controller.FavoriteList)
+		VideoRouter.GET("/favorite/list/", middlewares.JWTAuth(), controller.FavoriteList)
 		//视频推流
-		VideoRouter.POST("/douyin/feed", controller.Feed)
+		VideoRouter.GET("/feed/", middlewares.JWTAuth(), controller.Feed)
 	}
 }

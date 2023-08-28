@@ -9,7 +9,6 @@ import (
 	"go_gin/models"
 	"golang.org/x/net/context"
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 	"strconv"
 	"time"
 )
@@ -71,13 +70,16 @@ func (db videoDB) GetUserVideoInfo(userId int) (*models.UserVideoInfo, error) {
 
 func (db videoDB) GetUserVideoInfoList(userIds []int) ([]models.UserVideoInfo, error) {
 	userInfoList := make([]models.UserVideoInfo, len(userIds))
-	rows := global.DB.
-		Model(userVideoInfo).
-		Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).
-		Find(&userInfoList, userIds)
-	if rows.RowsAffected < 1 {
-		return userInfoList, errors.New("db err")
+	for i, v := range userIds {
+		rows := global.DB.
+			Model(userVideoInfo).
+			//Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).
+			Find(&userInfoList[i], v)
+		if rows.RowsAffected < 1 {
+			return userInfoList, errors.New("db err")
+		}
 	}
+
 	return userInfoList, nil
 }
 
@@ -145,7 +147,7 @@ func (db videoDB) GetFavoriteList(userId int) ([]models.Video, error) {
 	//先查询用户的喜欢列表
 	favoriteList := []models.Favorite{}
 	rows := global.DB.Model(favorite).Where("user_id = ? ", userId).Find(&favoriteList)
-	if rows.RowsAffected < 1 {
+	if rows.Error != nil {
 		return videoList, errors.New("db err")
 	}
 	//生成主键idlist
@@ -163,12 +165,34 @@ func (db videoDB) GetFavoriteList(userId int) ([]models.Video, error) {
 
 func (db videoDB) GetFeedVideoList(timestr string) ([]models.Video, error) {
 	//根据时间戳逆序查询
-	res := make([]models.Video, global.MaxFeedCacheNum)
+	res := []models.Video{}
 	timestamp, _ := strconv.ParseInt(timestr, 10, 64)
 	t := time.Unix(timestamp, 0)
 	rows := global.DB.Model(video).Where("create_time < ?", t).Order("create_time desc").Limit(global.MaxFeedCacheNum).Find(&res)
-	if rows.RowsAffected < 1 {
+	if rows.Error != nil {
 		return nil, errors.New("db err")
 	}
 	return res, nil
+}
+
+func (db videoDB) GetUserIsFavorite(userId string, videoList []int) ([]bool, error) {
+	res := make([]bool, len(videoList))
+	favorites := []models.Favorite{}
+	userid, _ := strconv.Atoi(userId)
+	rows := global.DB.
+		Model(favorite).Where("user_id = ?", userid).
+		//Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).
+		Find(&favorites)
+	if rows.Error != nil {
+		return nil, errors.New("db err")
+	}
+	for i, v := range videoList {
+		for _, v2 := range favorites {
+			if v == v2.VideoId {
+				res[i] = true
+			}
+		}
+	}
+	return res, nil
+
 }

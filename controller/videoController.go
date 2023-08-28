@@ -19,12 +19,14 @@ type PublishRes struct {
 func Publish(ctx *gin.Context) {
 	//参数校验
 	videoForm := forms.VideoForm{}
-	//首先进行获取参数，进行字段校验,
-	if err := ctx.ShouldBind(&videoForm); err != nil {
-		utils.HandleValidatorError(ctx, err)
-		return
-	}
-	videoForm.Data, _ = ctx.FormFile("file")
+	////首先进行获取参数，进行字段校验,
+	//if err := ctx.ShouldBind(&videoForm); err != nil {
+	//	utils.HandleValidatorError(ctx, err)
+	//	return
+	//}
+	//鉴权
+	videoForm.Title = ctx.PostForm("title")
+	videoForm.Data, _ = ctx.FormFile("data")
 	videoService := service.NewVideoService(ctx)
 	msg, _, err := videoService.Pubish(videoForm)
 
@@ -76,10 +78,12 @@ func PublishList(ctx *gin.Context) {
 func FavoriteAction(ctx *gin.Context) {
 	//参数校验
 	videoFavoriteForm := forms.VideoFavcriteForm{}
-	if err := ctx.ShouldBind(&videoFavoriteForm); err != nil {
-		utils.HandleValidatorError(ctx, err)
-		return
-	}
+	//if err := ctx.ShouldBind(&videoFavoriteForm); err != nil {
+	//	utils.HandleValidatorError(ctx, err)
+	//	return
+	//}
+	videoFavoriteForm.ActionType = ctx.PostForm("action_type")
+	videoFavoriteForm.VideoId = ctx.PostForm("video_id")
 	videoService := service.NewVideoService(ctx)
 	msg, _, err := videoService.FavoritedAction(videoFavoriteForm)
 	if err != nil {
@@ -93,7 +97,7 @@ func FavoriteAction(ctx *gin.Context) {
 
 type FavoriteListRes struct {
 	Response
-	VideoList []forms.PublishRes `json:"video_list"`
+	VideoList []forms.FavoriteRes `json:"video_list"`
 }
 
 func FavoriteList(ctx *gin.Context) {
@@ -116,7 +120,7 @@ func FavoriteList(ctx *gin.Context) {
 	}
 	res := FavoriteListRes{
 		Response{StatusCode: 500, StatusMsg: msg.(string)},
-		data.([]forms.PublishRes),
+		data.([]forms.FavoriteRes),
 	}
 	response.Success(ctx, res)
 }

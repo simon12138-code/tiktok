@@ -2,3 +2,81 @@
 2023-08-24T10:47:37.992+0800	INFO	middlewares/ginLogger.go:29	/tiktok/user/test	{"status": 404, "method": "GET", "path": "/tiktok/user/test", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
 2023-08-24T10:47:58.420+0800	INFO	middlewares/ginLogger.go:29	/tiktok/user/test	{"status": 404, "method": "GET", "path": "/tiktok/user/test", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
 2023-08-24T10:48:54.880+0800	INFO	middlewares/ginLogger.go:29	/tdouyin/user/test	{"status": 404, "method": "GET", "path": "/tdouyin/user/test", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
+2023-08-24T19:14:33.319+0800	INFO	middlewares/ginLogger.go:29	//douyin/user/login/	{"status": 404, "method": "POST", "path": "//douyin/user/login/", "query": "username=asd&password=12345678", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "504.6µs"}
+2023-08-24T20:13:44.482+0800	INFO	middlewares/ginLogger.go:29	/	{"status": 404, "method": "GET", "path": "/", "query": "", "ip": "10.16.13.40", "user-agent": "Mozilla/5.0 (Linux; Android 9; ASUS_I005DA Build/PI) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.70 Mobile Safari/537.36", "errors": "", "cost": "0s"}
+2023-08-24T20:13:44.498+0800	INFO	middlewares/ginLogger.go:29	/favicon.ico	{"status": 404, "method": "GET", "path": "/favicon.ico", "query": "", "ip": "10.16.13.40", "user-agent": "Mozilla/5.0 (Linux; Android 9; ASUS_I005DA Build/PI) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.70 Mobile Safari/537.36", "errors": "", "cost": "0s"}
+2023-08-24T20:14:05.299+0800	INFO	middlewares/ginLogger.go:29	/douyin/feed	{"status": 404, "method": "GET", "path": "/douyin/feed", "query": "latest_time=1692879244502", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:14:18.704+0800	INFO	middlewares/ginLogger.go:29	/douyin/feed	{"status": 404, "method": "GET", "path": "/douyin/feed", "query": "latest_time=1692879257909", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:15:20.358+0800	INFO	middlewares/ginLogger.go:29	/douyin/user/register/	{"status": 404, "method": "POST", "path": "/douyin/user/register/", "query": "username=asdasd&password=asdasdasdasd", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "243.1µs"}
+2023-08-24T20:36:35.675+0800	INFO	middlewares/ginLogger.go:29	/douyin/publish/list/	{"status": 404, "method": "GET", "path": "/douyin/publish/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:36:35.677+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:46:03.647+0800	INFO	middlewares/ginLogger.go:29	/douyin/publish/list/	{"status": 404, "method": "GET", "path": "/douyin/publish/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:46:03.647+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:46:13.691+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:46:13.694+0800	INFO	middlewares/ginLogger.go:29	/douyin/publish/list/	{"status": 404, "method": "GET", "path": "/douyin/publish/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:50:53.824+0800	INFO	middlewares/ginLogger.go:29	/douyin/favorite/list/	{"status": 404, "method": "GET", "path": "/douyin/favorite/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T20:50:53.824+0800	INFO	middlewares/ginLogger.go:29	/douyin/publish/list/	{"status": 404, "method": "GET", "path": "/douyin/publish/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NDcyNTc5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkyODgwNTc5fQ.mOLGsahiPu9y_XGE6l6qlRWOR5stf-T3Z7SjrfW3faM&user_id=4", "ip": "10.16.13.40", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "0s"}
+2023-08-24T21:01:17.443+0800	INFO	middlewares/ginLogger.go:29	//douyin/publish/	{"status": 404, "method": "POST", "path": "//douyin/publish/", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
+2023-08-24T21:01:27.081+0800	INFO	middlewares/ginLogger.go:29	//douyin/publish/action/	{"status": 404, "method": "POST", "path": "//douyin/publish/action/", "query": "", "ip": "::1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "0s"}
+2023-08-24T21:57:20.798+0800	ERROR	utils/ffmpeg.go:27	获取封面失败
+go_gin/utils.exampleReadFrameAsJpeg
+	D:/go/go_workspace/字节backend/go_gin/utils/ffmpeg.go:27
+go_gin/utils.GetSnapShot
+	D:/go/go_workspace/字节backend/go_gin/utils/ffmpeg.go:35
+go_gin/service.VideoService.Pubish
+	D:/go/go_workspace/字节backend/go_gin/service/video.go:51
+go_gin/controller.Publish
+	D:/go/go_workspace/字节backend/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	D:/go/go_workspace/字节backend/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	D:/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	D:/go/src/net/http/server.go:1991
+2023-08-24T21:58:53.396+0800	ERROR	utils/ffmpeg.go:27	获取封面失败
+go_gin/utils.exampleReadFrameAsJpeg
+	D:/go/go_workspace/字节backend/go_gin/utils/ffmpeg.go:27
+go_gin/utils.GetSnapShot
+	D:/go/go_workspace/字节backend/go_gin/utils/ffmpeg.go:35
+go_gin/service.VideoService.Pubish
+	D:/go/go_workspace/字节backend/go_gin/service/video.go:51
+go_gin/controller.Publish
+	D:/go/go_workspace/字节backend/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	D:/go/go_workspace/字节backend/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	D:/go/go_workspace/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	D:/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	D:/go/src/net/http/server.go:1991

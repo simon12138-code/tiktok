@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/redis/go-redis/v9"
 	"go_gin/dao"
 	"go_gin/forms"
@@ -18,7 +19,7 @@ import (
 	"go_gin/utils"
 	"image/jpeg"
 	"io"
-	"mime/multipart"
+	"math"
 	"path/filepath"
 	"strconv"
 	"time"
@@ -39,9 +40,9 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 		return "", "", err
 	}
 	userId := this.ctx.Value("userId").(int)
-	finalName := fmt.Sprintf("%d__%s", userId, videoFrom.Data.Filename)
+	finalName := fmt.Sprintf("%s_%d_%s", uuid.New().String(), userId, videoFrom.Data.Filename)
 	//设定路径public文件夹下
-	saveFile := filepath.Join("../public/", finalName)
+	saveFile := filepath.Join("./public/", finalName)
 	//保存文件
 	if err = this.ctx.SaveUploadedFile(videoFrom.Data, saveFile); err != nil {
 		global.Lg.Error(err.Error())
@@ -50,21 +51,23 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 	snapShotName := finalName + "-cover.jpeg"
 	img, err := utils.GetSnapShot(snapShotName, saveFile)
 	//获取视频的url
-	video_url, err := uploadAndGetUrl("video", finalName, fileObj, videoFrom.Data)
+	video_url, err := uploadAndGetUrl("video", finalName, fileObj, videoFrom.Data.Size)
 	if err != nil {
 		global.Lg.Error(err.Error())
 		return "上传失败", "", err
 	}
 	//创建图片缓存
 	var buffer bytes.Buffer
+
 	err = jpeg.Encode(&buffer, img, nil)
 	if err != nil {
 		global.Lg.Error(err.Error())
 		return "图片加载失败", "", err
 	}
+
 	imgread := bytes.NewReader(buffer.Bytes())
 	//获取封面的url
-	cover_url, err := uploadAndGetUrl("cover", snapShotName, imgread, videoFrom.Data)
+	cover_url, err := uploadAndGetUrl("cover", snapShotName, imgread, int64(buffer.Len()))
 	if err != nil {
 		global.Lg.Error(err.Error())
 		return "上传失败", "", err
@@ -89,14 +92,13 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 	if err != nil {
 		return "db 失败", "", err
 	}
-	var redisCacheErrChan chan error
+	redisCacheErrChan := make(chan error, 1)
 	//插入缓存
 	go func() {
 		//必须DB
 		info, err := userDB.GetOneUserInfo(userId)
 		if err != nil {
 			redisCacheErrChan <- err
-			return
 		}
 		videoRedis := redis_db.NewVideoRdis(this.ctx)
 		//如果对应的用户缓存不存在则则更新（一个用户可能有或者没有发布视频，或者上一条视频还在缓存中）
@@ -106,22 +108,20 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 			err = videoRedis.InsertUserCounter(info)
 			if err != nil {
 				redisCacheErrChan <- err
-				return
+
 			}
 		}
 		//判断relation表是否存在
 		if videoRedis.RelationExists(userId) {
 			//获取用户关系
 			userRelation, err := userDB.GetFollowedUserIds(userId)
-			if err != nil {
+			if err != nil && err.Error() != "粉丝数为0" {
 				redisCacheErrChan <- err
-				return
 			}
 			//存入缓存
 			err = videoRedis.InsertUserRelation(userRelation, userId)
 			if err != nil {
 				redisCacheErrChan <- err
-				return
 			}
 		}
 
@@ -146,11 +146,11 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 		err = videoRedis.InsertVideoAndVideoCounter(videoCache, createTime)
 		if err != nil {
 			redisCacheErrChan <- err
-			return
 		}
-		redisCacheErrChan <- nil
+		redisCacheErrChan <- errors.New("成功")
+
 	}()
-	if err = <-redisCacheErrChan; err != nil {
+	if err = <-redisCacheErrChan; err.Error() != "成功" {
 		global.Lg.Error(err.Error())
 	}
 	return "成功", "", nil
@@ -190,7 +190,7 @@ func (this *VideoService) PubishList(form forms.VideoListForm) (interface{}, int
 		FavoriteCount:   userVideoInfo.FavoriteCount,
 		WorkCount:       userVideoInfo.WorkCount,
 	}
-	resList := make([]forms.PublishRes, 0, len(videoList))
+	resList := make([]forms.PublishRes, len(videoList))
 	for i, v := range videoList {
 		resList[i].Author = author
 		resList[i].VideoId = v.VideoId
@@ -245,6 +245,9 @@ func (this *VideoService) FavoriteListFormList(form forms.VideoFavoriteListForm)
 	userDB := dao.NewUserDB(this.ctx)
 	userId, _ := strconv.Atoi(form.UserId)
 	videoList, err := videoDB.GetFavoriteList(userId)
+	if len(videoList) == 0 {
+		return "喜欢列表为空", []forms.FavoriteRes{}, nil
+	}
 	if err != nil {
 		return "video db失败", "", err
 	}
@@ -274,7 +277,7 @@ func (this *VideoService) FavoriteListFormList(form forms.VideoFavoriteListForm)
 		FavoriteCount:   userVideoInfo.FavoriteCount,
 		WorkCount:       userVideoInfo.WorkCount,
 	}
-	resList := make([]forms.PublishRes, 0, len(videoList))
+	resList := make([]forms.FavoriteRes, len(videoList))
 	for i, v := range videoList {
 		resList[i].Author = author
 		resList[i].VideoId = v.VideoId
@@ -283,27 +286,31 @@ func (this *VideoService) FavoriteListFormList(form forms.VideoFavoriteListForm)
 		resList[i].Title = v.Title
 		resList[i].CoverUrl = v.CoverUrl
 		resList[i].PlayUrl = v.PlayUrl
+		resList[i].IsFavorite = true
 	}
 	return "查询成功", resList, nil
 
 }
 
 func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}, int, error) {
-	//预分配内存
-	res := make([]forms.FeedRes, global.MaxFeedCacheNum)
+
 	userId, _ := this.ctx.Get("userId")
 	//先访问redis
 	videoRedis := redis_db.NewVideoRdis(this.ctx)
 	videoList, err := videoRedis.GetFeed(form)
+	//预分配内存
+	res := make([]forms.FeedRes, 0, global.MaxFeedCacheNum)
+
+	//cache Miss or err
 	if err != redis.Nil && err != nil {
 		return "redis err", "", 0, err
 	} else if err == redis.Nil {
 		//缓存失效，访问db
 		videoDB := dao.NewVideoDB(this.ctx)
 		//预分配用户内存
-		userList := make([]int, global.MaxFeedCacheNum)
-		videoList := make([]models.Video, global.MaxFeedCacheNum)
-		if form.LatestTime == "" {
+
+		videoList := []models.Video{}
+		if form.LatestTime == "0" {
 			//获取当前时间戳
 			timestamp := strconv.FormatInt(time.Now().Unix(), 10)
 			videoList, err = videoDB.GetFeedVideoList(timestamp)
@@ -316,6 +323,12 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 				return "db err", "", 0, err
 			}
 		}
+		if len(videoList) == 0 {
+			return "没有更新的视频", []forms.FeedRes{}, 0, nil
+		}
+		userListLen := math.Min(global.MaxFeedCacheNum, float64(len(videoList)))
+
+		userList := make([]int, int(userListLen))
 		//获取喜爱列表的用户idlist
 		for i, v := range videoList {
 			userList[i] = v.AuthorId
@@ -336,33 +349,42 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 		if err != nil {
 			return "db err", "", 0, err
 		}
+		videoIdList := make([]int, len(videoList))
+		for i, v := range videoList {
+			videoIdList[i] = v.VideoId
+		}
+		//获取用户点赞信息
+		userFavoriteList, err := videoDB.GetUserIsFavorite(strconv.Itoa(userId.(int)), videoIdList)
 		//装填返回值
 		for i := 0; i < len(videoList); i++ {
 			//userInfo
-			res[i].Author.Id = userInfoList[i].Id
-			res[i].Author.Name = userInfoList[i].UserName
-			res[i].Author.Signature = userInfoList[i].Signature
-			res[i].Author.BackgroundImage = userInfoList[i].BackgroundImage
-			res[i].Author.Avatar = userInfoList[i].Avater
-			res[i].Author.FollowCount = userInfoList[i].FollowCount
-			res[i].Author.FollowerCount = userInfoList[i].FollowerCount
+			var temp forms.FeedRes
+			temp.Author.Id = userInfoList[i].Id
+			temp.Author.Name = userInfoList[i].UserName
+			temp.Author.Signature = userInfoList[i].Signature
+			temp.Author.BackgroundImage = userInfoList[i].BackgroundImage
+			temp.Author.Avatar = userInfoList[i].Avater
+			temp.Author.FollowCount = userInfoList[i].FollowCount
+			temp.Author.FollowerCount = userInfoList[i].FollowerCount
 			//二分查找
-			res[i].Author.IsFollow = isFollow(userFollowerList[i], userId.(int))
+			temp.Author.IsFollow = isFollow(userFollowerList[i], userId.(int))
 			//userVideoInfo
-			res[i].Author.FavoriteCount = userVideoInfoList[i].FavoriteCount
-			res[i].Author.TotalFavorited = strconv.Itoa(userVideoInfoList[i].FavoritedCount)
-			res[i].Author.WorkCount = userVideoInfoList[i].WorkCount
+			temp.Author.FavoriteCount = userVideoInfoList[i].FavoriteCount
+			temp.Author.TotalFavorited = strconv.Itoa(userVideoInfoList[i].FavoritedCount)
+			temp.Author.WorkCount = userVideoInfoList[i].WorkCount
 			//VideoInfo
-			res[i].VideoId = videoList[i].VideoId
-			res[i].FavoriteCount = videoList[i].FavoriteCount
-			res[i].CommentCount = videoList[i].CommentCount
-			res[i].Title = videoList[i].Title
-			res[i].PlayUrl = videoList[i].PlayUrl
-			res[i].CoverUrl = videoList[i].CoverUrl
+			temp.VideoId = videoList[i].VideoId
+			temp.FavoriteCount = videoList[i].FavoriteCount
+			temp.CommentCount = videoList[i].CommentCount
+			temp.Title = videoList[i].Title
+			temp.PlayUrl = videoList[i].PlayUrl
+			temp.CoverUrl = videoList[i].CoverUrl
+			temp.IsFavorite = userFavoriteList[i]
+			res = append(res, temp)
 		}
 		//创建时间戳序列,默认推流个数30
-		timeList := make([]int64, global.MaxFeedCacheNum)
-		for i := 0; i < global.MaxFeedCacheNum; i++ {
+		timeList := make([]int64, int(userListLen))
+		for i := 0; i < int(userListLen); i++ {
 			timeList[i] = videoList[i].CreateTime.Unix()
 		}
 		//将查询到的内容插入到redis中更新
@@ -370,10 +392,28 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 		if err != nil {
 			return "", "", 0, err
 		}
-		next_time := timeList[30]
-		return "success", res[:30], int(next_time), nil
-	}
+		var next_time int64
+		if userListLen < 30 {
+			next_time = timeList[len(timeList)-1]
+			return "success", res[:len(timeList)], int(next_time), nil
+		} else {
+			next_time = timeList[29]
+			return "success", res[:30], int(next_time), nil
+		}
 
+	}
+	videoDB := dao.NewVideoDB(this.ctx)
+	videoIdList := make([]int, len(videoList))
+	for i, v := range videoList {
+		videoIdList[i] = v.VideoId
+	}
+	isfavoriteList, err := videoDB.GetUserIsFavorite(userId.(string), videoIdList)
+	if err != nil {
+		return "", "", 0, err
+	}
+	for i, v := range isfavoriteList {
+		videoList[i].IsFavorite = v
+	}
 	return "", videoList, int(time.Now().Unix()), nil
 }
 
@@ -393,9 +433,9 @@ func isFollow(nums []int, target int) bool {
 	return false
 }
 
-func uploadAndGetUrl(bucketName string, fileName string, fileobj io.Reader, header *multipart.FileHeader) (string, error) {
+func uploadAndGetUrl(bucketName string, fileName string, fileobj io.Reader, size int64) (string, error) {
 	// 把文件上传到minio对应的桶中
-	ok := utils.UploadFile(bucketName, fileName, fileobj, header.Size)
+	ok := utils.UploadFile(bucketName, fileName, fileobj, size)
 	if !ok {
 		err := errors.New("upload Fail")
 		global.Lg.Error(err.Error())

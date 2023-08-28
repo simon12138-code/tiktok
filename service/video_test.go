@@ -61,7 +61,7 @@ func Test(t *testing.T) {
 	ctx := gin.Context{}
 	video := NewVideoService(&ctx)
 	form := forms.FeedForm{LatestTime: "", Token: ""}
-	msg, videoList, err := video.FeedList(form)
+	msg, _, videoList, err := video.FeedList(form)
 	if err != nil {
 		panic(err)
 	}

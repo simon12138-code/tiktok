@@ -8,11 +8,11 @@ import (
 
 func RelationRouter(Router *gin.RouterGroup) {
 
-	RelationRouter := Router.Group("relation")
+	RelationRouter := Router.Group("/relation")
 	{
-		RelationRouter.GET("follower/list", middlewares.JWTAuth(), controller.GetFollowerInfos)
-		RelationRouter.GET("follow/list", middlewares.JWTAuth(), controller.GetFollowedUserInfos)
-		RelationRouter.GET("friend/list", middlewares.JWTAuth(), controller.GetFriendList)
-		RelationRouter.POST("action", middlewares.JWTAuth(), controller.UserAction)
+		RelationRouter.GET("/follower/list", middlewares.JWTAuth(), controller.GetFollowerInfos)
+		RelationRouter.GET("/follow/list", middlewares.JWTAuth(), controller.GetFollowedUserInfos)
+		RelationRouter.GET("/friend/list", middlewares.JWTAuth(), controller.GetFriendList)
+		RelationRouter.POST("/action", middlewares.JWTAuth(), controller.UserAction)
 	}
 }

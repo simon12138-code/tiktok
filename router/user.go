@@ -12,11 +12,11 @@ import (
 
 func UserRouter(Router *gin.RouterGroup) {
 
-	UserRouter := Router.Group("user")
+	UserRouter := Router.Group("/user")
 	{
-		UserRouter.POST("login", controller.UserLogin)
-		UserRouter.POST("register", controller.UserRegister)
-		UserRouter.GET("", middlewares.JWTAuth(), controller.GetUserInfo)
+		UserRouter.POST("/login/", controller.UserLogin)
+		UserRouter.POST("/register/", controller.UserRegister)
+		UserRouter.GET("/", middlewares.JWTAuth(), controller.GetUserInfo)
 	}
 
 }

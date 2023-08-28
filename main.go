@@ -5,6 +5,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/fatih/color"
 	"go.uber.org/zap"
@@ -30,16 +31,14 @@ func main() {
 	//6. 初始化redis
 	initialize.InitRedis()
 	color.Cyan("go-gin服务开始了")
-	global.Redis.Set("test", "testValue", time.Second)
-	//延迟两秒
-	value := global.Redis.Get("test")
+	global.Redis.Set(context.Background(), "test", "testValue", time.Second)
+	////延迟两秒
+	value := global.Redis.Get(context.Background(), "test")
 	color.Blue(value.Val())
 	// 7. 初始化minIO
-<<<<<<< HEAD
+
 	initialize.InitMinio()
-=======
-	//initialize.InitMinio()
->>>>>>> user/master
+
 	err := Router.Run(fmt.Sprintf(":%d", global.Settings.Port))
 	if err != nil {
 		zap.L().Info("this is hello func", zap.String("error", "启动错误!"))

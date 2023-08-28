@@ -7,7 +7,6 @@ import (
 	"go_gin/forms"
 	"go_gin/global"
 	"go_gin/models"
-	"gorm.io/gorm/clause"
 	"log"
 )
 
@@ -38,7 +37,7 @@ func (db userDB) UserCreate(user *models.User) (*models.User, error) {
 	//调用DB
 	user.FollowerCount = 0
 	user.FollowCount = 0
-	user.Signature = "点击添加介绍，让大家认识你..."
+	user.Signature = "点击添加介绍,让大家认识你"
 	user.Avater = "defaultAvater.jpg"
 	user.BackgroundImage = "defaultBackGround.jpg"
 	rows := global.DB.Create(user)
@@ -386,12 +385,14 @@ func (db userDB) IsFollowed(userId int, followerId int) (bool, error) {
 func (db userDB) GetUserList(userIds []int) ([]models.User, error) {
 	//预分配内存
 	res := make([]models.User, len(userIds))
-	rows := global.DB.
-		Model(user).
-		Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).
-		Find(&res, userIds)
-	if rows.RowsAffected < 1 {
-		return res, errors.New("sql错误")
+	for i, v := range userIds {
+		rows := global.DB.
+			Model(user).
+			//Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).
+			Find(&res[i], v)
+		if rows.RowsAffected < 1 {
+			return res, errors.New("sql错误")
+		}
 	}
 	return res, nil
 }

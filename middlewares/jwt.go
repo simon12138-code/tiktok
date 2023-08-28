@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/fatih/color"
+
 	"github.com/gin-gonic/gin"
 	"go_gin/global"
 	"go_gin/response"
@@ -20,13 +20,13 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
-func JWTAuth() gin.HandlerFunc {
+// 无侵入式解析body-token
+func JWTAuthInBody() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		//1、获取token
-		token := c.Request.Header.Get("token")
-		color.Yellow(token)
+		token := c.PostForm("token")
 		if token == "" {
-			response.Err(c, http.StatusUnauthorized, 401, "请登录", "")
+			response.Err(c, http.StatusUnauthorized, response.Response{StatusMsg: "请登录", StatusCode: http.StatusUnauthorized})
 			//先终止中间件调用
 			c.Abort()
 			return
@@ -38,12 +38,52 @@ func JWTAuth() gin.HandlerFunc {
 		if err != nil {
 			if err == TokenExpired {
 				//token过期
-				response.Err(c, http.StatusUnauthorized, 401, "授权已过期", "")
+				response.Err(c, http.StatusUnauthorized, response.Response{StatusMsg: "请登录", StatusCode: http.StatusUnauthorized})
 				c.Abort()
 				return
 			}
 			//其他错误
-			response.Err(c, http.StatusUnauthorized, 401, "未登陆", "")
+			response.Err(c, http.StatusUnauthorized, response.Response{StatusMsg: "未登录", StatusCode: http.StatusUnauthorized})
+			c.Abort()
+		}
+		//打印上下文
+		fmt.Println(c)
+		// gin的上下文记录claims和userId的值
+		c.Set("claims", claims)
+		c.Set("userId", claims.ID)
+		c.Next()
+	}
+
+}
+
+func JWTAuth() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		//1、获取token
+		var token string
+
+		token = c.Query("token")
+
+		//color.Yellow(token)
+		if token == "" {
+
+			response.Err(c, http.StatusUnauthorized, response.Response{StatusMsg: "请登录", StatusCode: http.StatusUnauthorized})
+			//先终止中间件调用
+			c.Abort()
+			return
+		}
+		//创建一个新的验证key
+		j := NewJWT()
+		//解析token
+		claims, err := j.ParseToken(token)
+		if err != nil {
+			if err == TokenExpired {
+				//token过期
+				response.Err(c, http.StatusUnauthorized, response.Response{StatusMsg: "请登录", StatusCode: http.StatusUnauthorized})
+				c.Abort()
+				return
+			}
+			//其他错误
+			response.Err(c, http.StatusUnauthorized, response.Response{StatusMsg: "未登录", StatusCode: http.StatusUnauthorized})
 			c.Abort()
 			return
 		}

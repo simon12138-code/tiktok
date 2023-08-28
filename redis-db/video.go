@@ -91,8 +91,8 @@ func NewVideoRdis(ctx context.Context) *VideoRedis {
 
 // 视频流缓存获取
 func (this VideoRedis) GetFeed(form forms.FeedForm) ([]forms.FeedRes, error) {
-	//创建参数
-	res := make([]forms.FeedRes, 30)
+	//创建请求参数
+	res := make([]Video, 0, 30)
 	var redisRangeArg redis.ZRangeArgs
 	if form.LatestTime == "" {
 		now := time.Now().Unix()
@@ -113,23 +113,84 @@ func (this VideoRedis) GetFeed(form forms.FeedForm) ([]forms.FeedRes, error) {
 			Stop:    form.LatestTime,
 		}
 	}
-	//获取对应的视频列表
+	//1、获取对应的videoConstInfo
 	resList, err := global.Redis.ZRangeArgs(context.Background(), redisRangeArg).Result()
 	if err == redis.Nil {
 		return nil, redis.Nil
 	} else if err != nil {
 		return nil, err
 	}
+	if len(resList) == 0 {
+		return nil, redis.Nil
+	}
 	//json解析
 	for i, j := len(resList)-1, 0; j < 30; {
+		var temp Video
+		_ = json.Unmarshal([]byte(resList[i]), &temp)
+		i--
+		res = append(res, temp)
 		if i == 0 {
 			break
 		}
-		_ = json.Unmarshal([]byte(resList[i]), &res[j])
-		i--
+
 		j++
 	}
-	return res, nil
+	authorIds := make([]int, len(res))
+	videoIds := make([]int, len(res))
+	for i, v := range res {
+		authorIds[i] = v.Author.AuthorId
+		videoIds[i] = v.VideoId
+	}
+
+	//2、获取counter
+	userCounter, err := getCounterList(this.ctx, "user", authorIds)
+	if err != nil {
+		return nil, err
+	}
+	videoCounter, err := getCounterList(this.ctx, "video", videoIds)
+	if err != nil {
+		return nil, err
+	}
+	//3、获取follower信息
+	userId := this.ctx.Value("userId")
+
+	isFollows, err := getFollowerList(this.ctx, authorIds, strconv.Itoa(userId.(int)))
+	AllRes := make([]forms.FeedRes, len(res))
+
+	//组装返回结果
+	for i, v := range res {
+		AllRes[i] = Cache2Res(v, userCounter[i], videoCounter[i], isFollows[i])
+	}
+	return AllRes, nil
+}
+
+func Cache2Res(v Video, userCounter map[string]interface{}, videoCounter map[string]interface{}, isFollow bool) forms.FeedRes {
+	favoriteCount, _ := strconv.Atoi(videoCounter["favorite_count"].(string))
+	commentCount, _ := strconv.Atoi(videoCounter["favorite_count"].(string))
+	followCount, _ := strconv.Atoi(userCounter["follow_count"].(string))
+	followerCount, _ := strconv.Atoi(userCounter["follower_count"].(string))
+	totaFavorited, _ := userCounter["total_favorited"].(string)
+	return forms.FeedRes{
+		VideoId: v.VideoId,
+		Author: forms.Author{
+			Id:              v.Author.AuthorId,
+			Name:            v.Author.Name,
+			FollowCount:     followCount,
+			FollowerCount:   followerCount,
+			IsFollow:        isFollow,
+			Avatar:          v.Author.Avatar,
+			BackgroundImage: v.Author.BackgroundImage,
+			Signature:       v.Author.Signature,
+			TotalFavorited:  totaFavorited,
+			WorkCount:       0,
+			FavoriteCount:   0,
+		},
+		PlayUrl:       v.PlayUrl,
+		CoverUrl:      v.CoverUrl,
+		FavoriteCount: favoriteCount,
+		CommentCount:  commentCount,
+		Title:         v.Title,
+	}
 }
 
 // 判定counter是否存在
@@ -158,45 +219,55 @@ func (this VideoRedis) InsertFeedList(feedForm []forms.FeedRes, score []int64, f
 	//2、开启四个协程完成内容插入
 	var wg sync.WaitGroup
 	wg.Add(4)
-	var err chan error
+	err := make(chan error, 4)
 	//协程处理
 	go func() {
 		defer wg.Done()
 		_, inErr := global.Redis.ZAdd(this.ctx, global.RedisFeedKey, *feedList...).Result()
 		if inErr != nil {
 			err <- inErr
+			return
 		}
+		err <- nil
 	}()
 	//插入用户计数器
 	go func() {
-		defer wg.Done()
+
 		inErr := ListCounter(this.ctx, "user_id", *userCountList)
 		if inErr != nil {
 			err <- inErr
+			return
 		}
+		err <- nil
 	}()
 	//插入video计数器
 	go func() {
-		defer wg.Done()
-		inErr := ListCounter(this.ctx, "user_id", *videoCountList)
+
+		inErr := ListCounter(this.ctx, "video_id", *videoCountList)
 		if inErr != nil {
 			err <- inErr
+			return
 		}
+		err <- nil
 	}()
 	//插入用户关系
 	go func() {
-		defer wg.Done()
+
 		inErr := addFollower(this.ctx, *userFollow)
 		if inErr != nil {
 			err <- inErr
+			return
 		}
+		err <- nil
+
 	}()
 	//阻塞等待四个协程执行完毕
-	wg.Wait()
 	//收集错误信息
-	finalerr := <-err
-	if finalerr != nil {
-		return finalerr
+	for i := 0; i < 4; i++ {
+		stepErr := <-err
+		if stepErr != nil {
+			return stepErr
+		}
 	}
 	return nil
 }
@@ -215,7 +286,7 @@ func addFollower(ctx context.Context, follow UserFollow) error {
 	pipe := global.Redis.Pipeline()
 	for k, v := range follow {
 		uid, _ := strconv.Atoi(k)
-		key := strconv.Itoa(uid)
+		key := getFollowerKey(uid)
 		_, err := pipe.Del(ctx, key).Result()
 		if err != nil {
 			return err
@@ -239,6 +310,10 @@ func addFollower(ctx context.Context, follow UserFollow) error {
 
 }
 
+func getFollowerKey(id int) string {
+	return fmt.Sprintf("followerInfo_%d", id)
+}
+
 // 发布时的单条video缓存信息插入
 func (this VideoRedis) InsertVideoAndVideoCounter(VideoForm forms.PublishRes, timeStamp time.Time) error {
 	//需要查润video，userInfo,userVideoInfo,userFollower
@@ -253,7 +328,7 @@ func (this VideoRedis) InsertVideoAndVideoCounter(VideoForm forms.PublishRes, ti
 	if err != nil {
 		return err
 	}
-	err = ListCounter(this.ctx, "video", []map[string]interface{}{*videoCounter})
+	err = ListCounter(this.ctx, "video_id", []map[string]interface{}{*videoCounter})
 	if err != nil {
 		return err
 	}
@@ -275,7 +350,7 @@ func (this VideoRedis) InsertUserCounter(info *forms.UserRes) error {
 	//	"favorite_count": strconv.Itoa(res.FavoriteCount),
 	//	"comment_count":  strconv.Itoa(res.CommentCount),
 	//}
-	err := ListCounter(this.ctx, "user", userCount)
+	err := ListCounter(this.ctx, "user_id", userCount)
 	return err
 }
 
@@ -318,6 +393,61 @@ func (this VideoRedis) DecreaseFavorite(favorite models.Favorite, authorId int) 
 	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
 		decrByUserLikeInUserInfo(this.ctx, authorId)
 	}
+}
+
+// 批量获取视频数据
+func getCounterList(ctx context.Context, counterType string, IDS []int) ([]map[string]interface{}, error) {
+	pipe := global.Redis.Pipeline()
+	res := make([]map[string]interface{}, len(IDS))
+	var key string
+	for _, ID := range IDS {
+		if counterType == "user" {
+			key = GetUserCounterKey(ID)
+		} else if counterType == "video" {
+			key = GetVideoCounterKey(ID)
+		}
+		pipe.HGetAll(ctx, key)
+	}
+	//执行批量获取
+	cmders, err := pipe.Exec(ctx)
+	if err != nil {
+		global.Lg.Error(err.Error())
+		return nil, err
+	}
+	for i, cmder := range cmders {
+		counterMap, err := cmder.(*redis.MapStringStringCmd).Result()
+		if err != nil {
+			global.Lg.Error(err.Error())
+			return nil, err
+		}
+		temp := map[string]interface{}{}
+		for field, value := range counterMap {
+			temp[field] = value
+		}
+		res[i] = temp
+	}
+	return res, nil
+}
+
+// 批量获取用户是否关注
+func getFollowerList(ctx context.Context, IDS []int, userId string) ([]bool, error) {
+	res := make([]bool, len(IDS))
+	pipe := global.Redis.Pipeline()
+	for _, id := range IDS {
+		pipe.SIsMember(ctx, strconv.Itoa(id), userId)
+	}
+	//批量执行
+	cmders, err := pipe.Exec(ctx)
+	//访问返回值
+	for i, cmder := range cmders {
+		res[i], err = cmder.(*redis.BoolCmd).Result()
+		if err != nil {
+			global.Lg.Error(err.Error())
+			return nil, err
+		}
+	}
+	return res, nil
+
 }
 
 // ListCounter用于重建计数器，FeedListcacheMiss CounterType 对应计数器的主键名称
