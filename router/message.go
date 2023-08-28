@@ -11,7 +11,8 @@ func MessageRouter(Router *gin.RouterGroup) {
 	{
 		// 查询聊天记录
 		MessageRouter.GET("chat", middlewares.JWTAuth(), controller.GetChatMessages)
-		// 发送消息
-		MessageRouter.POST("action", middlewares.JWTAuth(), controller.SendMessage)
+
+		// 判断消息操作类型，并调用相关函数
+		MessageRouter.POST("action", middlewares.JWTAuth(), controller.ActionChoice)
 	}
 }
