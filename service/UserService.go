@@ -19,7 +19,7 @@ func NewUserService(ctx *gin.Context) *UserService {
 }
 func (this UserService) UserLoginService(userLoginForm forms.UserLoginForm) (map[string]interface{}, interface{}, error) {
 	userdb := dao.NewUserDB(this.ctx)
-	user, err := userdb.UserLogin(userLoginForm.Username, userLoginForm.Password)
+	user, err := userdb.UserLogin(userLoginForm.Username)
 	if err != nil {
 		return nil, "用户不存在", err
 	}
@@ -96,7 +96,7 @@ func (this UserService) GetFriendListService(userid int) (interface{}, interface
 	if friendInfos == nil {
 		return friendInfos, "查询成功(无朋友)", nil
 	}
-	return friendInfos, "查询成功", nil
+	return *friendInfos, "查询成功", nil
 
 }
 func (this UserService) UserFollowActionService(toUserid int, userid int) (interface{}, interface{}, error) {

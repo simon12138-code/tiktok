@@ -8,6 +8,7 @@ import (
 	"go_gin/global"
 	"go_gin/models"
 	"log"
+	"strconv"
 )
 
 var user models.User
@@ -23,15 +24,16 @@ func NewUserDB(ctx context.Context) userDB {
 	return userDB{ctx: ctx}
 }
 
-func (db userDB) UserLogin(username string, password string) (*models.User, error) {
+func (db userDB) UserLogin(username string) (*models.User, error) {
 	//调用DB
-	rows := global.DB.Where("user_name =  ?  ", username).Find(&user)
-	fmt.Println(&user)
+	loginUser := models.User{}
+	rows := global.DB.Model(user).Where("user_name = ?", username).Find(&loginUser)
+	fmt.Println(&loginUser)
 	//查询失败
 	if rows.RowsAffected < 1 {
-		return &user, errors.New("db 错误")
+		return &loginUser, errors.New("db 错误")
 	}
-	return &user, nil
+	return &loginUser, nil
 }
 func (db userDB) UserCreate(user *models.User) (*models.User, error) {
 	//调用DB
@@ -184,14 +186,14 @@ func (db userDB) GetFollowedUserIds(userId int) ([]int, error) {
 
 }
 func (db userDB) GetFriendList(userId int) (*[]forms.FriendRes, error) {
-	var relation models.Relation
+	//var relation models.Relation
 
 	var friendsInfos []forms.FriendRes
 
 	var relations []models.Relation
 
-	var chatContent models.ChatContent
-
+	//var chatContent models.ChatContent
+	//查找好友列表
 	rows := global.DB.Where("user_id = ? and friend_flag = ?", userId, 1).Find(&relations)
 	if rows.RowsAffected < 1 {
 		return &friendsInfos, nil
@@ -203,20 +205,23 @@ func (db userDB) GetFriendList(userId int) (*[]forms.FriendRes, error) {
 	}
 
 	nowUser := userId
+	//根据每一个好友的信息进行聊天查询
 	for i := 0; i < len(friendids); i++ {
-		rows := global.DB.Where("id = ?", friendids[i]).Find(&user)
-		fmt.Println(&user)
+		friendUserInfo := models.User{}
+		rows := global.DB.Model(models.User{}).Where("id = ?", friendids[i]).Find(&friendUserInfo)
+		fmt.Println(&friendUserInfo)
 		if rows.RowsAffected < 1 {
 			return &friendsInfos, errors.New("db 错误")
 		}
-
-		rows1 := global.DB.Where("user_id = ?", friendids[i]).Find(&userVideoInfo)
-		fmt.Println(&userVideoInfo)
+		var friendVideoInfo models.UserVideoInfo
+		rows1 := global.DB.Model(models.UserVideoInfo{}).Where("user_id = ?", friendids[i]).Find(&friendVideoInfo)
+		fmt.Println(&friendVideoInfo)
 		if rows1.RowsAffected < 1 {
 			return &friendsInfos, errors.New("db 错误")
 		}
 		var followFlag bool
-		rows2 := global.DB.Where("user_id = ? and follower_id = ?", friendids[i], nowUser).Find(&relation)
+		var friendRelation models.Relation
+		rows2 := global.DB.Model(models.Relation{}).Where("user_id = ? and follower_id = ?", friendids[i], nowUser).Find(&friendRelation)
 		if rows2.RowsAffected < 1 {
 			followFlag = false
 		} else {
@@ -226,27 +231,27 @@ func (db userDB) GetFriendList(userId int) (*[]forms.FriendRes, error) {
 		var friendInfo forms.FriendRes
 
 		friendInfo.Id = friendids[i]
-		friendInfo.UserName = user.UserName
-		friendInfo.Signature = user.Signature
-		friendInfo.FollowCount = user.FollowCount
-		friendInfo.FollowerCount = user.FollowerCount
-		friendInfo.Avater = user.Avater
+		friendInfo.UserName = friendUserInfo.UserName
+		friendInfo.Signature = friendUserInfo.Signature
+		friendInfo.FollowCount = friendUserInfo.FollowCount
+		friendInfo.FollowerCount = friendUserInfo.FollowerCount
+		friendInfo.Avatar = friendUserInfo.Avater
 		friendInfo.IsFollow = followFlag
-		friendInfo.BackgroundImage = user.BackgroundImage
-		friendInfo.TotalFavorited = userVideoInfo.FavoritedCount
-		friendInfo.WorkCount = userVideoInfo.WorkCount
-		friendInfo.FavoriteCount = userVideoInfo.FavoriteCount
+		friendInfo.BackgroundImage = friendUserInfo.BackgroundImage
+		friendInfo.TotalFavorited = strconv.Itoa(friendVideoInfo.FavoritedCount)
+		friendInfo.WorkCount = friendVideoInfo.WorkCount
+		friendInfo.FavoriteCount = friendVideoInfo.FavoriteCount
 
-		raws := global.DB.Where("user_id = ? and to_user_id = ?", nowUser, friendids[i]).Find(&chatRelation)
-		if raws.RowsAffected < 1 {
-			friendInfo.Message = ""
-		}
-		raws1 := global.DB.Where("content_id = ?", chatRelation.ContentIndex).Last(&chatContent)
-		if raws1.RowsAffected < 1 {
-			friendInfo.Message = ""
-
-		}
-		friendInfo.Message = chatContent.Content
+		//raws := global.DB.Where("from_user_id = ? and to_user_id = ?", nowUser, friendids[i]).Find(&chatRelation)
+		//if raws.RowsAffected < 1 {
+		//	friendInfo.Message = ""
+		//}
+		//raws1 := global.DB.Where("content_id = ?", chatRelation.ContentIndex).Last(&chatContent)
+		//if raws1.RowsAffected < 1 {
+		//	friendInfo.Message = ""
+		//
+		//}
+		//friendInfo.Message = chatContent.Content
 
 		friendsInfos = append(friendsInfos, friendInfo)
 	}

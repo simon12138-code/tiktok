@@ -239,16 +239,16 @@ func GetFriendList(c *gin.Context) {
 		return
 	}
 	UserId := getUserInfo.UserId
-
-	NowUserId := c.Value("userId")
-	if NowUserId != UserId {
-		response.Err(c, http.StatusBadRequest, struct {
-			response.Response
-		}{
-			response.Response{StatusCode: http.StatusUnauthorized, StatusMsg: "用户不匹配"},
-		})
-		return
-	}
+	//该接口支持查询别人的好友列表，所以直接选取userId作为查询key
+	//NowUserId := c.Value("userId")
+	//if NowUserId != UserId {
+	//	response.Err(c, http.StatusBadRequest, struct {
+	//		response.Response
+	//	}{
+	//		response.Response{StatusCode: http.StatusUnauthorized, StatusMsg: "用户不匹配"},
+	//	})
+	//	return
+	//}
 	userService := service.UserService{}
 	data, msg, err := userService.GetFriendListService(UserId)
 	if err != nil {

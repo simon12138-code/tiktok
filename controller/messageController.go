@@ -14,7 +14,11 @@ func ActionChoice(c *gin.Context) {
 	case 1:
 		SendMessage(c)
 	default:
-		response.Err(c, 400, 400, "未定义消息操作", "")
+		response.Err(c, 400, struct {
+			response.Response
+		}{
+			response.Response{StatusCode: 400, StatusMsg: "未定义操作"},
+		})
 	}
 }
 
@@ -23,28 +27,39 @@ func SendMessage(c *gin.Context) {
 	mess := forms.Message{}
 
 	//
-	strid := c.Query("userId")
-	mess.Id, _ = strconv.Atoi(strid)
+	strid, _ := c.Get("userId")
+	mess.FromUserId = strid.(int)
 
 	strtoid := c.Query("to_user_id")
 	mess.ToUserId, _ = strconv.Atoi(strtoid)
 
 	mess.Content = c.Query("content")
-
-	dao.ChatContentCreate(&mess)
-	response.Success(c, 200, "success", "")
+	err := dao.ChatContentCreate(&mess)
+	if err != nil {
+		response.Err(c, 500, response.Response{StatusCode: 500, StatusMsg: err.Error()})
+		return
+	}
+	response.Success(c, response.Response{StatusCode: 0, StatusMsg: "Success"})
 }
 
 // GetChatMessages 获取消息记录
 func GetChatMessages(c *gin.Context) {
-	strid := c.Query("userId")
-	tmpid, _ := strconv.Atoi(strid)
+	userId, _ := c.Get("userId")
 
 	strtoid := c.Query("to_user_id")
 	tmptoid, _ := strconv.Atoi(strtoid)
-
-	var messageList []forms.Message
-	messageList = dao.GetMessageList(tmpid, tmptoid)
-
-	response.Success(c, 200, "success", messageList)
+	pre_msg_time := c.Query("pre_msg_time")
+	var messageList []forms.MessageRes
+	messageList, err := dao.GetMessageList(userId.(int), tmptoid, pre_msg_time)
+	if err != nil {
+		response.Err(c, 500, response.ChatResponse{StatusCode: "500", StatusMsg: err.Error()})
+		return
+	}
+	response.Success(c, struct {
+		response.ChatResponse
+		MessageList []forms.MessageRes `json:"message_list"`
+	}{
+		response.ChatResponse{StatusCode: "0", StatusMsg: "Success"},
+		messageList,
+	})
 }

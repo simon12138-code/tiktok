@@ -1,0 +1,84 @@
+2023-08-29T10:38:39.118+0800	INFO	middlewares/ginLogger.go:29	/douyin/feed/	{"status": 404, "method": "POST", "path": "/douyin/feed/", "query": "to_user_id=4&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NSwiZXhwIjoxNjk1ODY4Njg1LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMjc2Njg1fQ.YZ7jOZSM7dG1x8GXuQHqkyqAARCvFkfI-YXgBSTkTws&action_type=1&content=%E4%BD%A0%E5%A5%BD", "ip": "192.168.112.1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "3.361µs"}
+2023-08-29T10:38:53.882+0800	INFO	middlewares/ginLogger.go:29	/douyin/message/action/	{"status": 404, "method": "POST", "path": "/douyin/message/action/", "query": "to_user_id=4&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NSwiZXhwIjoxNjk1ODY4Njg1LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMjc2Njg1fQ.YZ7jOZSM7dG1x8GXuQHqkyqAARCvFkfI-YXgBSTkTws&action_type=1&content=%E4%BD%A0%E5%A5%BD", "ip": "192.168.112.1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "2.516µs"}
+2023-08-29T10:39:01.441+0800	INFO	middlewares/ginLogger.go:29	/douyin/message/action	{"status": 404, "method": "POST", "path": "/douyin/message/action", "query": "to_user_id=4&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NSwiZXhwIjoxNjk1ODY4Njg1LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMjc2Njg1fQ.YZ7jOZSM7dG1x8GXuQHqkyqAARCvFkfI-YXgBSTkTws&action_type=1&content=%E4%BD%A0%E5%A5%BD", "ip": "192.168.112.1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "5.309µs"}
+2023-08-29T12:34:04.837+0800	INFO	go_gin/main.go:44	this is hello func	{"error": "启动错误!"}
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:298	设置 uid=4, key=followerInfo_4
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=1, key=RedisUserCountKey_1
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=2, key=RedisUserCountKey_2
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=3, key=RedisUserCountKey_3
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=5, key=RedisUserCountKey_5
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=6, key=RedisUserCountKey_6
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=7, key=RedisUserCountKey_7
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=8, key=RedisUserCountKey_8
+
+2023-08-29T13:46:02.609+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T13:46:02.610+0800	INFO	redis-db/video.go:468	设置 uid=9, key=RedisUserCountKey_9
+
+2023-08-29T13:46:09.053+0800	INFO	middlewares/ginLogger.go:29	/douyin/comment/list/	{"status": 404, "method": "GET", "path": "/douyin/comment/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1NjM3Mjg4LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMDQ1Mjg4fQ.83muBL_K8l5EKL8g2G2HKMIXOky8gre1TTTsTL4VS9c&video_id=1", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "4.998µs"}
+2023-08-29T14:42:20.076+0800	INFO	middlewares/ginLogger.go:29	/douyin/message/chat	{"status": 404, "method": "POST", "path": "/douyin/message/chat", "query": "to_user_id=4&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NSwiZXhwIjoxNjk1ODY4Njg1LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMjc2Njg1fQ.YZ7jOZSM7dG1x8GXuQHqkyqAARCvFkfI-YXgBSTkTws&pre_msg_time=0", "ip": "192.168.112.1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": "17.334µs"}
+2023-08-29T14:51:21.882+0800	INFO	middlewares/ginLogger.go:29	/douyin/message/action/	{"status": 404, "method": "POST", "path": "/douyin/message/action/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1ODgyODg5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMjkwODg5fQ.6zATxfbobHP3cD2NUup87d8Tz6STnDKLSKsWs-1vKTI&to_user_id=5&content=sd&action_type=1", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "17.398µs"}
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:468	设置 uid=1, key=RedisUserCountKey_1
+
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:468	设置 uid=2, key=RedisUserCountKey_2
+
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:468	设置 uid=3, key=RedisUserCountKey_3
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=5, key=RedisUserCountKey_5
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=6, key=RedisUserCountKey_6
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=7, key=RedisUserCountKey_7
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=8, key=RedisUserCountKey_8
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=9, key=RedisUserCountKey_9
+
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.761+0800	INFO	redis-db/video.go:298	设置 uid=4, key=followerInfo_4
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:18:38.870+0800	INFO	middlewares/ginLogger.go:29	/douyin/comment/list/	{"status": 404, "method": "GET", "path": "/douyin/comment/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1ODgyODg5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMjkwODg5fQ.6zATxfbobHP3cD2NUup87d8Tz6STnDKLSKsWs-1vKTI&video_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "5.121µs"}

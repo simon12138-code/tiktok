@@ -88,7 +88,7 @@ func JWTAuth() gin.HandlerFunc {
 			return
 		}
 		//打印上下文
-		fmt.Println(c)
+		//fmt.Println(c)
 		// gin的上下文记录claims和userId的值
 		c.Set("claims", claims)
 		c.Set("userId", claims.ID)

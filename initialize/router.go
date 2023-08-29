@@ -19,7 +19,8 @@ func Routers() *gin.Engine {
 	router.VideoRouter(ApiGroup)
 	router.UserRouter(ApiGroup)
 	router.RelationRouter(ApiGroup)
-
+	router.MessageRouter(ApiGroup)
+	router.UtilRouter(ApiGroup)
 	//添加中间件（全局中间件）
 	Router.Use(middlewares.Ginlogger(), middlewares.GinRecovery(true))
 	Router.Use(middlewares.Cors())

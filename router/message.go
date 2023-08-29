@@ -7,12 +7,12 @@ import (
 )
 
 func MessageRouter(Router *gin.RouterGroup) {
-	MessageRouter := Router.Group("message")
+	MessageRouter := Router.Group("/message")
 	{
 		// 查询聊天记录
-		MessageRouter.GET("chat", middlewares.JWTAuth(), controller.GetChatMessages)
+		MessageRouter.GET("/chat", middlewares.JWTAuth(), controller.GetChatMessages)
 
 		// 判断消息操作类型，并调用相关函数
-		MessageRouter.POST("action", middlewares.JWTAuth(), controller.ActionChoice)
+		MessageRouter.POST("/action/", middlewares.JWTAuth(), controller.ActionChoice)
 	}
 }
