@@ -455,8 +455,13 @@ func ListCounter(ctx context.Context, CounterType string, Counter []map[string]i
 	pipe := global.Redis.Pipeline()
 	for _, counter := range Counter {
 		//获取Id
-		uid, err := strconv.Atoi(counter[CounterType].(string))
-		key := GetUserCounterKey(uid)
+		id, err := strconv.Atoi(counter[CounterType].(string))
+		var key string
+		if CounterType == "user_id" {
+			key = GetUserCounterKey(id)
+		} else if CounterType == "video_id" {
+			key = GetVideoCounterKey(id)
+		}
 		_, err = pipe.Del(ctx, key).Result()
 		if err != nil {
 			return err
@@ -465,7 +470,7 @@ func ListCounter(ctx context.Context, CounterType string, Counter []map[string]i
 		if err != nil {
 			return err
 		}
-		global.Lg.Info(fmt.Sprintf("设置 uid=%d, key=%s\n", uid, key))
+		global.Lg.Info(fmt.Sprintf("设置 type=%s,id=%d, key=%s\n", CounterType, id, key))
 	}
 	// 批量执行上面for循环设置好的hmset命令
 	_, err := pipe.Exec(ctx)

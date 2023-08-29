@@ -175,10 +175,10 @@ func (db videoDB) GetFeedVideoList(timestr string) ([]models.Video, error) {
 	return res, nil
 }
 
-func (db videoDB) GetUserIsFavorite(userId string, videoList []int) ([]bool, error) {
+func (db videoDB) GetUserIsFavorite(userId int, videoList []int) ([]bool, error) {
 	res := make([]bool, len(videoList))
 	favorites := []models.Favorite{}
-	userid, _ := strconv.Atoi(userId)
+	userid := userId
 	rows := global.DB.
 		Model(favorite).Where("user_id = ?", userid).
 		//Clauses(clause.OrderBy{Expression: clause.Expr{SQL: "FIELD(id,?)", Vars: []interface{}{userIds}, WithoutParentheses: true}}).

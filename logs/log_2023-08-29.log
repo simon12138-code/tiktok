@@ -82,3 +82,79 @@
 2023-08-29T15:09:39.762+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
 
 2023-08-29T15:18:38.870+0800	INFO	middlewares/ginLogger.go:29	/douyin/comment/list/	{"status": 404, "method": "GET", "path": "/douyin/comment/list/", "query": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiZXhwIjoxNjk1ODgyODg5LCJpc3MiOiJ0ZXN0IiwibmJmIjoxNjkzMjkwODg5fQ.6zATxfbobHP3cD2NUup87d8Tz6STnDKLSKsWs-1vKTI&video_id=4", "ip": "192.168.112.1", "user-agent": "okhttp/3.14.9", "errors": "", "cost": "5.121µs"}
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:298	设置 uid=4, key=followerInfo_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=1, key=RedisUserCountKey_1
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=2, key=RedisUserCountKey_2
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=3, key=RedisUserCountKey_3
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=5, key=RedisUserCountKey_5
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=6, key=RedisUserCountKey_6
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=7, key=RedisUserCountKey_7
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=8, key=RedisUserCountKey_8
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=9, key=RedisUserCountKey_9
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:27:10.833+0800	INFO	redis-db/video.go:468	设置 uid=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.255+0800	INFO	redis-db/video.go:298	设置 uid=4, key=followerInfo_4
+
+2023-08-29T15:31:47.255+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.255+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=1, key=RedisVideoCountKey_1
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=2, key=RedisVideoCountKey_2
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=3, key=RedisVideoCountKey_3
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=4, key=RedisVideoCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=5, key=RedisVideoCountKey_5
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=6, key=RedisVideoCountKey_6
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=7, key=RedisVideoCountKey_7
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=8, key=RedisVideoCountKey_8
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=video_id,id=9, key=RedisVideoCountKey_9
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-29T15:31:47.256+0800	INFO	redis-db/video.go:473	设置 type=user_id,id=4, key=RedisUserCountKey_4
+

@@ -354,7 +354,7 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 			videoIdList[i] = v.VideoId
 		}
 		//获取用户点赞信息
-		userFavoriteList, err := videoDB.GetUserIsFavorite(strconv.Itoa(userId.(int)), videoIdList)
+		userFavoriteList, err := videoDB.GetUserIsFavorite(userId.(int), videoIdList)
 		//装填返回值
 		for i := 0; i < len(videoList); i++ {
 			//userInfo
@@ -407,7 +407,7 @@ func (this VideoService) FeedList(form forms.FeedForm) (interface{}, interface{}
 	for i, v := range videoList {
 		videoIdList[i] = v.VideoId
 	}
-	isfavoriteList, err := videoDB.GetUserIsFavorite(userId.(string), videoIdList)
+	isfavoriteList, err := videoDB.GetUserIsFavorite(userId.(int), videoIdList)
 	if err != nil {
 		return "", "", 0, err
 	}
