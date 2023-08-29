@@ -8,14 +8,19 @@ import (
 	"strconv"
 )
 
+func ActionChoice(c *gin.Context) {
+	atype, _ := strconv.Atoi(c.Query("action_type"))
+	switch atype {
+	case 1:
+		SendMessage(c)
+	default:
+		response.Err(c, 400, 400, "未定义消息操作", "")
+	}
+}
+
 // SendMessage 发送信息方法
 func SendMessage(c *gin.Context) {
 	mess := forms.Message{}
-
-	atype, _ := strconv.Atoi(c.Query("action_type"))
-	if atype != 1 {
-		response.Err(c, 400, 400, "未定义消息操作", "")
-	}
 
 	//
 	strid := c.Query("userId")
