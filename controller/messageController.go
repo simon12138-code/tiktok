@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go_gin/dao"
 	"go_gin/forms"
+	"go_gin/models"
 	"go_gin/response"
 	"strconv"
 )
@@ -49,12 +50,21 @@ func GetChatMessages(c *gin.Context) {
 	strtoid := c.Query("to_user_id")
 	tmptoid, _ := strconv.Atoi(strtoid)
 	pre_msg_time := c.Query("pre_msg_time")
-	var messageList []forms.MessageRes
-	messageList, err := dao.GetMessageList(userId.(int), tmptoid, pre_msg_time)
-	if err != nil {
-		response.Err(c, 500, response.ChatResponse{StatusCode: "500", StatusMsg: err.Error()})
+
+	var listIndex []models.ChatContentIndex
+	listIndex, err1 := dao.GetMessageListIndex(userId.(int), tmptoid, pre_msg_time)
+	if err1 != nil {
+		response.Err(c, 500, response.ChatResponse{StatusCode: "500", StatusMsg: err1.Error()})
 		return
 	}
+
+	var messageList []forms.MessageRes
+	messageList, err2 := dao.GetMessageList(listIndex)
+	if err2 != nil {
+		response.Err(c, 500, response.ChatResponse{StatusCode: "500", StatusMsg: err2.Error()})
+		return
+	}
+
 	response.Success(c, struct {
 		response.ChatResponse
 		MessageList []forms.MessageRes `json:"message_list"`

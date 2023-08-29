@@ -31,8 +31,8 @@ func ChatContentCreate(message *forms.Message) error {
 	return nil
 }
 
-// GetMessageList 查询聊天记录列表
-func GetMessageList(userid int, touserid int, timePre string) ([]forms.MessageRes, error) {
+// GetMessageListIndex GetMessageList 查询聊天记录索引列表
+func GetMessageListIndex(userid int, touserid int, timePre string) ([]models.ChatContentIndex, error) {
 	preMessageTime, _ := strconv.ParseInt(timePre, 10, 64)
 	timeNow := time.Now().Unix()
 	timeP := time.Unix(preMessageTime, 0)
@@ -45,6 +45,12 @@ func GetMessageList(userid int, touserid int, timePre string) ([]forms.MessageRe
 	if rows1.Error != nil {
 		return nil, rows1.Error
 	}
+
+	return indexList, nil
+}
+
+// GetMessageList 根据索引列表查询聊天记录列表
+func GetMessageList(indexList []models.ChatContentIndex) ([]forms.MessageRes, error) {
 	messageList := make([]forms.MessageRes, len(indexList))
 	// for循环根据索引查询content，依次插入messageList
 	contentList := make([]models.ChatContent, len(indexList))
