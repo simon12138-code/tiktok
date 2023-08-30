@@ -52,6 +52,7 @@ type FriendRes struct {
 	FavoriteCount   int    `json:"favorite_count"`
 }
 type ActionForm struct {
-	ToUserId   int `json:"to_user_id" form:"to_user_id"`
-	ActionType int `json:"action_type" form:"action_type"` //1关注，2取消关注
+	Token      string `json:"token" form:"token" binding:"required"`
+	ToUserId   int    `json:"to_user_id" form:"to_user_id" binding:"required"`
+	ActionType int    `json:"action_type" form:"action_type" binding:"required"` //1关注，2取消关注
 }

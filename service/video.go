@@ -218,6 +218,9 @@ func (this *VideoService) FavoritedAction(form forms.VideoFavcriteForm) (interfa
 	if actionType == 1 {
 		var authorId int
 		authorId, ok, err = videoDB.CreateFavorite(&favorite)
+		if err != nil {
+			return "action fail", "", err
+		}
 		//插入缓存（如果存在的话）
 		go func() {
 			videoRedis := redis_db.NewVideoRdis(this.ctx)
@@ -226,6 +229,9 @@ func (this *VideoService) FavoritedAction(form forms.VideoFavcriteForm) (interfa
 	} else if actionType == 2 {
 		var authorId int
 		authorId, ok, err = videoDB.DeleteFavorite(&favorite)
+		if err != nil {
+			return "action fail", "", err
+		}
 		//插入缓存（如果存在的话）
 		go func() {
 			videoRedis := redis_db.NewVideoRdis(this.ctx)

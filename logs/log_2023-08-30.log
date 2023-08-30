@@ -1,0 +1,144 @@
+2023-08-30T10:03:27.701+0800	INFO	redis-db/video.go:573	user_id: 1
+更新前
+favorite_count = 0
+--------
+
+2023-08-30T10:03:27.701+0800	INFO	redis-db/video.go:583	user_id: 1
+更新后
+favorite_count = 1
+--------
+
+2023-08-30T10:03:27.702+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 1
+--------
+
+2023-08-30T10:03:29.904+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 2
+--------
+
+2023-08-30T10:03:31.349+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 2
+--------
+
+2023-08-30T10:03:31.350+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 3
+--------
+
+2023-08-30T10:04:25.750+0800	INFO	redis-db/video.go:573	user_id: 1
+更新前
+favorite_count = 1
+--------
+
+2023-08-30T10:04:25.751+0800	INFO	redis-db/video.go:583	user_id: 1
+更新后
+favorite_count = 0
+--------
+
+2023-08-30T10:04:25.751+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 3
+--------
+
+2023-08-30T10:04:25.751+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 4
+--------
+
+2023-08-30T10:04:25.752+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 4
+--------
+
+2023-08-30T10:04:25.752+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 5
+--------
+
+2023-08-30T10:04:59.730+0800	INFO	redis-db/video.go:570	禁止变更计数，计数变更后小于0. 0 + (-1) = -1
+
+2023-08-30T10:04:59.730+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 5
+--------
+
+2023-08-30T10:04:59.731+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 6
+--------
+
+2023-08-30T10:05:15.587+0800	INFO	redis-db/video.go:570	禁止变更计数，计数变更后小于0. 0 + (-1) = -1
+
+2023-08-30T10:05:15.588+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 6
+--------
+
+2023-08-30T10:05:15.588+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 7
+--------
+
+2023-08-30T10:15:44.122+0800	INFO	redis-db/video.go:573	user_id: 2
+更新前
+favorite_count = 0
+--------
+
+2023-08-30T10:15:44.134+0800	INFO	redis-db/video.go:583	user_id: 2
+更新后
+favorite_count = 1
+--------
+
+2023-08-30T10:15:44.135+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 7
+--------
+
+2023-08-30T10:15:44.135+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 8
+--------
+
+2023-08-30T10:15:44.136+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 8
+--------
+
+2023-08-30T10:15:44.136+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 9
+--------
+
+2023-08-30T10:15:52.455+0800	INFO	redis-db/video.go:573	user_id: 2
+更新前
+favorite_count = 1
+--------
+
+2023-08-30T10:15:52.456+0800	INFO	redis-db/video.go:583	user_id: 2
+更新后
+favorite_count = 0
+--------
+
+2023-08-30T10:15:52.457+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 9
+--------
+
+2023-08-30T10:15:52.457+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 10
+--------
+
+2023-08-30T10:15:52.458+0800	INFO	redis-db/video.go:573	user_id: 4
+更新前
+total_favorited = 10
+--------
+
+2023-08-30T10:15:52.458+0800	INFO	redis-db/video.go:583	user_id: 4
+更新后
+total_favorited = 11
+--------
+

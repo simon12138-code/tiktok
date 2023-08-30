@@ -18,7 +18,7 @@ func VideoRouter(router *gin.RouterGroup) {
 		//列表功能
 		VideoRouter.GET("/publish/list/", middlewares.JWTAuth(), controller.PublishList)
 		//点赞功能
-		VideoRouter.POST("/favorite/action/", middlewares.JWTAuthInBody(), controller.FavoriteAction)
+		VideoRouter.POST("/favorite/action/", middlewares.JWTAuth(), controller.FavoriteAction)
 		//喜欢列表
 		VideoRouter.GET("/favorite/list/", middlewares.JWTAuth(), controller.FavoriteList)
 		//视频推流

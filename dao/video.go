@@ -84,6 +84,11 @@ func (db videoDB) GetUserVideoInfoList(userIds []int) ([]models.UserVideoInfo, e
 }
 
 func (db videoDB) CreateFavorite(favorite *models.Favorite) (int, bool, error) {
+	favoriteSelect := models.Favorite{}
+	row := global.DB.Model(models.Favorite{}).Where("user_id = ?AND video_id = ?", favorite.UserId, favorite.VideoId).Find(&favoriteSelect)
+	if row.RowsAffected > 0 {
+		return 0, false, errors.New("already has favorite action")
+	}
 	rows := global.DB.Create(favorite)
 	if rows.RowsAffected < 1 {
 		return 0, false, errors.New("db err")
@@ -112,7 +117,11 @@ func (db videoDB) CreateFavorite(favorite *models.Favorite) (int, bool, error) {
 }
 
 func (db videoDB) DeleteFavorite(userfavorite *models.Favorite) (int, bool, error) {
-	rows := global.DB.Where("user_id = ? AND video_id = ?", userfavorite.UserId, userfavorite.VideoId).Delete(favorite)
+	row := global.DB.Where("user_id = ? AND video_id = ?", userfavorite.UserId, userfavorite.VideoId).Find(userfavorite)
+	if row.RowsAffected < 1 {
+		return 0, false, errors.New("user favorite not found")
+	}
+	rows := global.DB.Where("user_id = ? AND video_id = ?", userfavorite.UserId, userfavorite.VideoId).Delete(userfavorite)
 	if rows.RowsAffected < 1 {
 		return 0, false, errors.New("db err")
 	}

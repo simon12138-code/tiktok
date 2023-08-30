@@ -78,12 +78,12 @@ func PublishList(ctx *gin.Context) {
 func FavoriteAction(ctx *gin.Context) {
 	//参数校验
 	videoFavoriteForm := forms.VideoFavcriteForm{}
-	//if err := ctx.ShouldBind(&videoFavoriteForm); err != nil {
-	//	utils.HandleValidatorError(ctx, err)
-	//	return
-	//}
-	videoFavoriteForm.ActionType = ctx.PostForm("action_type")
-	videoFavoriteForm.VideoId = ctx.PostForm("video_id")
+	if err := ctx.ShouldBind(&videoFavoriteForm); err != nil {
+		utils.HandleValidatorError(ctx, err)
+		return
+	}
+	//videoFavoriteForm.ActionType = ctx.PostForm("action_type")
+	//videoFavoriteForm.VideoId = ctx.PostForm("video_id")
 	videoService := service.NewVideoService(ctx)
 	msg, _, err := videoService.FavoritedAction(videoFavoriteForm)
 	if err != nil {
