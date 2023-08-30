@@ -309,7 +309,14 @@ func addFollower(ctx context.Context, follow UserFollow) error {
 	return nil
 
 }
-
+func followerAdd(ctx context.Context, followerId int, userId int) error {
+	_, err := global.Redis.SAdd(ctx, getFollowerKey(userId), strconv.Itoa(followerId)).Result()
+	return err
+}
+func followerRemove(ctx context.Context, followerId int, userId int) error {
+	_, err := global.Redis.SRem(ctx, getFollowerKey(userId), strconv.Itoa(followerId)).Result()
+	return err
+}
 func getFollowerKey(id int) string {
 	return fmt.Sprintf("followerInfo_%d", id)
 }
@@ -368,30 +375,85 @@ func (this VideoRedis) IncreaseFavorite(favorite models.Favorite, authorId int) 
 	if ok, _ := global.Redis.Exists(this.ctx, GetVideoCounterKey(videoId)).Result(); ok == 1 {
 		incrByUserLikeInVideoInfo(this.ctx, videoId)
 	}
-	//判断用户count是否存在
+	if userId != authorId {
+		//判断用户count是否存在
+		if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
+			incrByUserLikeInUserInfo(this.ctx, userId)
+		}
+		//判断作者count是否存在
+		if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
+			incrByUserLikeInUserInfo(this.ctx, authorId)
+		}
+	} else {
+		//判断作者count是否存在
+		if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
+			incrByUserLikeInUserInfo(this.ctx, authorId)
+		}
+	}
+
+}
+func (this VideoRedis) IncreateUserFollower(followerId int, userId int) error {
+	//判断关注者count是否存在
 	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
-		incrByUserLikeInUserInfo(this.ctx, userId)
+		//被关注者的followerCount增加
+		incrByUserFollower(this.ctx, userId)
 	}
-	//判断作者count是否存在
-	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
-		incrByUserLikeInUserInfo(this.ctx, authorId)
+	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(followerId)).Result(); ok == 1 {
+		//关注者的followCount增加
+		incrByUserFollow(this.ctx, followerId)
 	}
+	//判定关注set是否存在，存在则添加
+	if ok, _ := global.Redis.Exists(this.ctx, getFollowerKey(userId)).Result(); ok == 1 {
+		err := followerAdd(this.ctx, followerId, userId)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (this VideoRedis) DecreateUserFollower(followerId int, userId int) error {
+	//判断关注者count是否存在
+	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
+		//被关注者的followerCount增加
+		decrByUserFollower(this.ctx, userId)
+	}
+	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(followerId)).Result(); ok == 1 {
+		//关注者的followCount增加
+		decrByUserFollow(this.ctx, followerId)
+	}
+	//判定关注set是否存在，存在则添加
+	if ok, _ := global.Redis.Exists(this.ctx, getFollowerKey(userId)).Result(); ok == 1 {
+		err := followerRemove(this.ctx, followerId, userId)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (this VideoRedis) DecreaseFavorite(favorite models.Favorite, authorId int) {
 	userId := favorite.UserId
 	videoId := favorite.VideoId
+
 	//判断videocount是否存在
 	if ok, _ := global.Redis.Exists(this.ctx, GetVideoCounterKey(videoId)).Result(); ok == 1 {
 		decrByUserLikeInVideoInfo(this.ctx, videoId)
 	}
-	//判断用户count是否存在
-	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
-		decrByUserLikeInUserInfo(this.ctx, userId)
-	}
-	//判断作者count是否存在
-	if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
-		decrByUserLikeInUserInfo(this.ctx, authorId)
+	//如果作者和用户是同一个人，那么增加的逻辑就要改变
+	if userId != authorId {
+		//判断用户count是否存在
+		if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
+			decrByUserLikeInUserInfo(this.ctx, userId)
+		}
+		//判断作者count是否存在
+		if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(authorId)).Result(); ok == 1 {
+			decrByUserLikeInUserInfo(this.ctx, authorId)
+		}
+	} else {
+		//判断用户count是否存在
+		if ok, _ := global.Redis.Exists(this.ctx, GetUserCounterKey(userId)).Result(); ok == 1 {
+			decrByUserLikeInUserInfo(this.ctx, userId)
+		}
 	}
 }
 
@@ -532,6 +594,22 @@ func decrByUserLikeInVideoInfo(ctx context.Context, videoID int) {
 	decrByVideoField(ctx, videoID, "favorite_count")
 }
 
+// 关注数目+1
+func incrByUserFollower(ctx context.Context, userID int) {
+	incrByUserField(ctx, userID, "follower_count")
+}
+func incrByUserFollow(ctx context.Context, userID int) {
+	incrByUserField(ctx, userID, "follow_count")
+}
+
+// 关注数目-1
+func decrByUserFollower(ctx context.Context, userID int) {
+	decrByUserField(ctx, userID, "follower_count")
+}
+func decrByUserFollow(ctx context.Context, userID int) {
+	decrByUserField(ctx, userID, "follow_count")
+}
+
 // DecrByUserCollect 收藏数-1
 //
 //	func DecrByUserCollect(ctx context.Context, userID int) {
@@ -545,7 +623,7 @@ func incrByUserField(ctx context.Context, userID int, field string) {
 }
 
 func decrByUserField(ctx context.Context, userID int, field string) {
-	change(ctx, "user", userID, field, 1)
+	change(ctx, "user", userID, field, -1)
 }
 func decrByVideoField(ctx context.Context, videoID int, field string) {
 	change(ctx, "video", videoID, field, -1)

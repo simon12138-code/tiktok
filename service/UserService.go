@@ -1,10 +1,13 @@
 package service
 
 import (
+	"context"
 	"github.com/gin-gonic/gin"
 	"go_gin/dao"
 	"go_gin/forms"
+	"go_gin/global"
 	"go_gin/models"
+	redis_db "go_gin/redis-db"
 	"go_gin/utils"
 	"golang.org/x/crypto/bcrypt"
 	"log"
@@ -105,6 +108,14 @@ func (this UserService) UserFollowActionService(toUserid int, userid int) (inter
 	if err != nil {
 		return "", msg, err
 	}
+	//插入缓存保证对应信息一致性
+
+	redisDB := redis_db.NewVideoRdis(context.Background())
+	err = redisDB.IncreateUserFollower(userid, toUserid)
+	if err != nil {
+		global.Lg.Error(err.Error())
+	}
+
 	return "", msg, err
 
 }
@@ -112,6 +123,9 @@ func (this UserService) UserCancelActionService(Touserid int, userid int) (inter
 
 	userdb := dao.NewUserDB(this.ctx)
 	msg, err := userdb.UserActionCancel(Touserid, userid)
+	//插入缓存保证对应信息一致性
+	redisDB := redis_db.NewVideoRdis(context.Background())
+	err = redisDB.DecreateUserFollower(userid, Touserid)
 	if err != nil {
 		return "", msg, err
 	}

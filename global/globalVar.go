@@ -7,6 +7,7 @@ package global
 import (
 	ut "github.com/go-playground/universal-translator"
 	"github.com/redis/go-redis/v9"
+	"time"
 
 	"github.com/minio/minio-go"
 	"go.uber.org/zap"
@@ -28,3 +29,4 @@ const MaxFeedCacheNum = 60
 const RedisUserCountKey = "RedisUserCountKey"
 const RedisVideoCountKey = "RedisVideoCountKey"
 const DBMaxInitRelationSliceNum = 30
+const UrlExpireTime = time.Second * 30 * 24 * 60 * 60

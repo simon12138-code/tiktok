@@ -447,7 +447,7 @@ func uploadAndGetUrl(bucketName string, fileName string, fileobj io.Reader, size
 		global.Lg.Error(err.Error())
 		return "图像上传失败", err
 	}
-	headerUrl := utils.GetFileUrl(bucketName, fileName, time.Second*24*60*60)
+	headerUrl := utils.GetFileUrl(bucketName, fileName, global.UrlExpireTime)
 	if headerUrl == "" {
 		err := errors.New("getFileUrl fail")
 		global.Lg.Error(err.Error())

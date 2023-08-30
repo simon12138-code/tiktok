@@ -85,7 +85,7 @@ func (db videoDB) GetUserVideoInfoList(userIds []int) ([]models.UserVideoInfo, e
 
 func (db videoDB) CreateFavorite(favorite *models.Favorite) (int, bool, error) {
 	favoriteSelect := models.Favorite{}
-	row := global.DB.Model(models.Favorite{}).Where("user_id = ?AND video_id = ?", favorite.UserId, favorite.VideoId).Find(&favoriteSelect)
+	row := global.DB.Model(models.Favorite{}).Where("user_id = ? AND video_id = ?", favorite.UserId, favorite.VideoId).Find(&favoriteSelect)
 	if row.RowsAffected > 0 {
 		return 0, false, errors.New("already has favorite action")
 	}
