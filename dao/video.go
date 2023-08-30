@@ -33,6 +33,15 @@ func (db videoDB) CreateVideoDao(video *models.Video) (int, error) {
 	return video.AuthorId, nil
 }
 
+func (db videoDB) UpdateUrlList(video []models.Video) error {
+	for _, v := range video {
+		rows := global.DB.Model(&video).Updates(map[string]interface{}{"play_url": v.PlayUrl, "cover_url": v.CoverUrl})
+		if rows.Error != nil {
+			return errors.New("更新错误")
+		}
+	}
+	return nil
+}
 func (db videoDB) CreateUserVideoInfoDao(userVideoInfo *models.UserVideoInfo) (int, error) {
 	rows := global.DB.Create(userVideoInfo)
 	if rows.RowsAffected < 1 {

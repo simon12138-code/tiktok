@@ -1880,3 +1880,290 @@ total_favorited = 2
 total_favorited = 1
 --------
 
+2023-08-30T12:06:29.051+0800	INFO	redis-db/video.go:651	user_id: 5
+更新前
+favorite_count = 1
+--------
+
+2023-08-30T12:06:29.062+0800	INFO	redis-db/video.go:661	user_id: 5
+更新后
+favorite_count = 0
+--------
+
+2023-08-30T12:06:29.062+0800	INFO	redis-db/video.go:651	user_id: 4
+更新前
+total_favorited = 1
+--------
+
+2023-08-30T12:06:29.063+0800	INFO	redis-db/video.go:661	user_id: 4
+更新后
+total_favorited = 0
+--------
+
+2023-08-30T12:06:29.642+0800	ERROR	utils/minio.go:63	Expires cannot be greater than 7 days.
+go_gin/utils.GetFileUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/minio.go:63
+go_gin/service.uploadAndGetUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:450
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:54
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:06:29.642+0800	ERROR	service/video.go:453	getFileUrl fail
+go_gin/service.uploadAndGetUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:453
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:54
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:06:29.642+0800	ERROR	service/video.go:56	getFileUrl fail
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:56
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:06:32.478+0800	ERROR	utils/minio.go:63	Expires cannot be greater than 7 days.
+go_gin/utils.GetFileUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/minio.go:63
+go_gin/service.uploadAndGetUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:450
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:54
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:06:32.479+0800	ERROR	service/video.go:453	getFileUrl fail
+go_gin/service.uploadAndGetUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:453
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:54
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:06:32.479+0800	ERROR	service/video.go:56	getFileUrl fail
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:56
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:43:41.591+0800	ERROR	utils/minio.go:63	Expires cannot be greater than 7 days.
+go_gin/utils.GetFileUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/utils/minio.go:63
+go_gin/service.uploadAndGetUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:448
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:54
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:43:41.592+0800	ERROR	service/video.go:451	getFileUrl fail
+go_gin/service.uploadAndGetUrl
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:451
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:54
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:44:35.324+0800	ERROR	service/video.go:56	getFileUrl fail
+go_gin/service.VideoService.Pubish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/service/video.go:56
+go_gin/controller.Publish
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/controller/videoController.go:31
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+go_gin/middlewares.JWTAuthInBody.func1
+	/root/dockerfile/go/go/go_workspace/tiktok/go_gin/middlewares/jwt.go:54
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/root/dockerfile/go/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:2947
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:1991
+2023-08-30T12:46:31.993+0800	INFO	redis-db/video.go:535	设置 type=user_id,id=4, key=RedisUserCountKey_4
+
+2023-08-30T12:46:33.987+0800	INFO	redis-db/video.go:298	设置 uid=4, key=followerInfo_4
+
+2023-08-30T12:46:33.989+0800	INFO	redis-db/video.go:535	设置 type=video_id,id=4, key=RedisVideoCountKey_4
+

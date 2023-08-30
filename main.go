@@ -36,9 +36,11 @@ func main() {
 	value := global.Redis.Get(context.Background(), "test")
 	color.Blue(value.Val())
 	// 7. 初始化minIO
-
 	initialize.InitMinio()
-
+	// 8、其中异步收集器
+	initialize.InitColloctor()
+	//9、启动url刷新定时任务
+	initialize.InitCronJob()
 	err := Router.Run(fmt.Sprintf(":%d", global.Settings.Port))
 	if err != nil {
 		zap.L().Info("this is hello func", zap.String("error", "启动错误!"))

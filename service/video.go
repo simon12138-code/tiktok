@@ -93,6 +93,12 @@ func (this VideoService) Pubish(videoFrom forms.VideoForm) (interface{}, interfa
 		return "db 失败", "", err
 	}
 	redisCacheErrChan := make(chan error, 1)
+	//异步收集url信息
+	go func() {
+		//保存对应id和文件名用于重新获取url
+		global.VideoChan <- global.VideoInfo{VideoId: videoId, VideoFileName: saveFile}
+		global.CoverChan <- global.VideoInfo{VideoId: videoId, VideoFileName: finalName}
+	}()
 	//插入缓存
 	go func() {
 		//必须DB
@@ -229,9 +235,7 @@ func (this *VideoService) FavoritedAction(form forms.VideoFavcriteForm) (interfa
 	} else if actionType == 2 {
 		var authorId int
 		authorId, ok, err = videoDB.DeleteFavorite(&favorite)
-		if err != nil {
-			return "action fail", "", err
-		}
+
 		//插入缓存（如果存在的话）
 		go func() {
 			videoRedis := redis_db.NewVideoRdis(this.ctx)
@@ -447,7 +451,7 @@ func uploadAndGetUrl(bucketName string, fileName string, fileobj io.Reader, size
 		global.Lg.Error(err.Error())
 		return "图像上传失败", err
 	}
-	headerUrl := utils.GetFileUrl(bucketName, fileName, global.UrlExpireTime)
+	headerUrl := utils.GetFileUrl(bucketName, fileName, global.MaxUrlExpireTime)
 	if headerUrl == "" {
 		err := errors.New("getFileUrl fail")
 		global.Lg.Error(err.Error())
